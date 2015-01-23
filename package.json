@@ -1,0 +1,19 @@
+{
+  "name": "grabbler",
+  "version": "0.0.1",
+  "description": "supinfo grabbler project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://emmanuelgautier@bitbucket.org/emmanuelgautier/supinfo-grabbler-project.git"
+  },
+  "keywords": [
+    "supinfo",
+    "grabbler"
+  ],
+  "author": "Supinfo",
+  "license": "GPL"
+}
