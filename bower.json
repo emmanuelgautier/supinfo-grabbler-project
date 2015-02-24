@@ -1,0 +1,34 @@
+{
+  "name": "grabbler",
+  "version": "0.0.1",
+  "authors": [
+    "Emmanuel Gautier <manu.gautier1394@gmail.com>"
+  ],
+  "description": "supinfo grabbler project",
+  "main": "app.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "supinfo",
+    "grabbler"
+  ],
+  "license": "GPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "bootstrap": "~3.3.2",
+    "angular": "~1.3.14",
+    "angular-route": "~1.3.14",
+    "angular-resource": "~1.3.14",
+    "requirejs": "~2.1.16",
+    "modernizr": "~2.8.3"
+  }
+}
