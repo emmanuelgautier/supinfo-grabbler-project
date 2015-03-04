@@ -11,6 +11,7 @@ var config = {
   root: rootPath,
   app: {
     name: 'grabbler',
+    port: 80
   },
   db: {
     name: 'grabbler',

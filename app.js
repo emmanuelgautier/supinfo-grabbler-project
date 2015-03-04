@@ -11,13 +11,13 @@ var express = require('express'),
     }),
 
     app = express(),
-    server = {};
+    server = null;
 
 require(config.root + '/app/config/express')(app, sessionStore, config);
 require(config.root + '/app/config/passport')(app, config);
 require(config.root + '/app/routes/')(app);
 
-app.set('port', process.env.PORT || config.port);
+app.set('port', process.env.PORT || config.app.port);
 
 db.sequelize.sync().then(function() {
   server = app.listen(app.get('port'), function() {
