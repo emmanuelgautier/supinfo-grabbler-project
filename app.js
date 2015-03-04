@@ -10,15 +10,18 @@ var express = require('express'),
       db: db.sequelize
     }),
 
-    app = express();
+    app = express(),
+    server = {};
 
 require(config.root + '/app/config/express')(app, sessionStore, config);
 require(config.root + '/app/config/passport')(app, config);
 require(config.root + '/app/routes/')(app);
 
-db.sequelize.sync().success(function() {
-  server.listen(8080, function() {
-    console.log('%s listening at %s', server.name, server.url);
+app.set('port', process.env.PORT || config.port);
+
+db.sequelize.sync().then(function() {
+  server = app.listen(app.get('port'), function() {
+    console.log('Express server listening on port', server.address().port);
   });
 });
 
@@ -57,10 +60,4 @@ app.use(function(err, req, res) {
   });
 
   console.error(err.message);
-});
-
-app.set('port', process.env.PORT || config.port);
-
-var server = app.listen(app.get('port'), function() {
-  console.log('Express server listening on port', server.address().port);
 });
