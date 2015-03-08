@@ -27,6 +27,12 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
+# Ruby gem lock file
+Gemfile.lock
+
+# sass cache files
+.sass-cache
+
 bower_components
 public/js/lib/*
 public/css/*
