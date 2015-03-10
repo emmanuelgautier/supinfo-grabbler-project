@@ -3,9 +3,9 @@
 var express = require('express'),
     config  = require('./app/config/config'),
 
-    db              = require(config.root + '/app/config/db'),
-    session         = require('express-session'),
-    SequelizeStore  = require('connect-session-sequelize')(session.Store),
+    db = require(config.root + '/app/config/db'),
+    session = require('express-session'),
+    SequelizeStore = require('connect-session-sequelize')(session.Store),
     sessionStore = new SequelizeStore({
       db: db.sequelize
     }),
@@ -15,10 +15,10 @@ var express = require('express'),
 
 require(config.root + '/app/config/express')(app, sessionStore, config);
 require(config.root + '/app/config/passport')(app, config);
-require(config.root + '/app/routes/')(app);
 
 app.set('port', process.env.PORT || config.app.port);
 
+console.log('database is synchronising');
 db.sequelize.sync().then(function() {
   server = app.listen(app.get('port'), function() {
     console.log('Express server listening on port', server.address().port);

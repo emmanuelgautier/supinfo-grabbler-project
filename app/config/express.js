@@ -6,11 +6,10 @@ var express      = require('express'),
     logger       = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser   = require('body-parser'),
-    flash        = require('connect-flash'),
-    hbs          = require('express-hbs');
+    flash        = require('connect-flash');
 
 module.exports = function(app, sessionStore, config) {
-  app.use(favicon( config.root + '/public/favicon.ico'));
+  app.use(favicon( config.root + '/public/favicon.ico', ['index.html']));
   app.use(logger('dev'));
 
   app.use(express.static(config.root + '/public'));
@@ -36,14 +35,4 @@ module.exports = function(app, sessionStore, config) {
   }));
 
   app.use(flash());
-
-  app.set('view engine', 'hbs');
-  app.set('views', config.root + '/app/views');
-
-  app.engine('hbs', hbs.express3({
-    partialsDir: config.root + '/app/views/partials',
-    layoutsDir: config.root + '/app/views/layouts',
-    defaultLayout: config.root + '/app/views/layouts/main.hbs',
-    extname: '.hbs',
-  }));
 };
