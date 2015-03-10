@@ -55,7 +55,7 @@ gulp.task('copy', function() {
 
 // Compiles Sass
 gulp.task('sass', function() {
-  return gulp.src('app/assets/scss/app.scss')
+  return gulp.src('./app/assets/scss/app.scss')
     .pipe($.rubySass({
       loadPath: sassPaths,
       style: 'nested',
@@ -97,12 +97,13 @@ gulp.task('uglify', function() {
 });
 
 // generates URLs for page templates
-gulp.task('route-templates', function() {
-  return gulp.src('./public/templates/**/*.html')
+gulp.task('route-templates', ['copy'], function() {
+  return gulp.src('./app/assets/templates/**/*.html')
     .pipe(router({
       path: './public/js/routes.js',
-      root: 'public'
+      root: '/'
     }))
+    .pipe(gulp.dest('./public/templates'))
   ;
 });
 
@@ -114,7 +115,7 @@ gulp.task('build', function() {
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change
-gulp.task('default', ['build', 'server:start'], function() {
+gulp.task('default', ['build'], function() {
   // Watch Sass
   gulp.watch(['./app/assets/scss/**/*', './scss/**/*'], ['sass']);
 
