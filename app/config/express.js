@@ -5,8 +5,7 @@ var express      = require('express'),
     favicon      = require('serve-favicon'),
     logger       = require('morgan'),
     cookieParser = require('cookie-parser'),
-    bodyParser   = require('body-parser'),
-    flash        = require('connect-flash');
+    bodyParser   = require('body-parser');
 
 module.exports = function(app, sessionStore, config) {
   app.use(favicon( config.root + '/public/favicon.ico', ['index.html']));
@@ -33,6 +32,4 @@ module.exports = function(app, sessionStore, config) {
     saveUninitialized: true,
     resave: false
   }));
-
-  app.use(flash());
 };
