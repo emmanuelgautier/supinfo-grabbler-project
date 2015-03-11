@@ -7,11 +7,16 @@ var bcrypt = require('bcryptjs'),
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     username: {
-      type: DataTypes.STRING, 
-      allowNull: false
+      type: DataTypes.STRING(50), 
+      allowNull: false,
+      validate: {
+        min: 2,
+        max: 50,
+        notEmpty: true
+      }
     },
     password: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: false,
       set: function(password) {
         bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
@@ -23,23 +28,41 @@ module.exports = function(sequelize, DataTypes) {
             this.setData('password', hash);
           });
         });
+      },
+      validate: {
+        notEmpty: true,
+        max: 255
       }
     },
     email: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        min: 5,
+        max: 255,
+        isEmail: true
+      }
     },
     gender: {
       type: DataTypes.ENUM,
       values: ['m', 'f'],
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        isIn: [['m', 'f']]
+      }
     },
     birthdate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        isDate: true
+      }
     },
     displayname: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       allowNull: true,
       get: function() {
         var displayName = this.getData('displayname');
@@ -49,22 +72,34 @@ module.exports = function(sequelize, DataTypes) {
         }
 
         return displayName;
+      },
+      validate: {
+        min: 2,
+        max: 150
       }
     },
     firstname: {
-      type: DataTypes.STRING,
-      allowNull: true
+      type: DataTypes.STRING(50),
+      allowNull: true,
+      validate: {
+        min: 2,
+        max: 50
+      }
     },
     lastname: {
-      type: DataTypes.STRING,
-      allowNull: true
+      type: DataTypes.STRING(50),
+      allowNull: true,
+      validate: {
+        min: 2,
+        max: 50
+      }
     },
     avatar: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(10),
       allowNull: false
     },
     cover: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(10),
       allowNull: false
     }
   }, {

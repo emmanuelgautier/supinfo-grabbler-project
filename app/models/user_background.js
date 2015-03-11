@@ -5,14 +5,6 @@ module.exports = function(sequelize, DataTypes) {
     color: {
       type: DataTypes.STRING,
       allowNull: true
-    },
-    image_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
     }
   }, {
     tableName: 'user_background',
@@ -20,8 +12,8 @@ module.exports = function(sequelize, DataTypes) {
     paranoid: false,
     underscored: true,
     associate: function(models) {
-      UserBackground.belongsTo(models.Image, { foreignKey: 'image_id' });
-      UserBackground.belongsTo(models.User, { foreignKey: 'user_id' });
+      UserBackground.belongsTo(models.Image);
+      UserBackground.belongsTo(models.User);
     }
   });
 
