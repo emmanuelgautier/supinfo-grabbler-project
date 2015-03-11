@@ -34,6 +34,8 @@ Gemfile.lock
 .sass-cache
 
 bower_components
-public/js/lib/*
+public/components/*
 public/css/*
+public/js/*
 public/fonts/*
+public/templates/*
