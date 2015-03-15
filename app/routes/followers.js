@@ -6,9 +6,8 @@ var express = require('express'),
 var followers = require('../controllers/followers');
 
 router
-  .get('/', followers.list)
-  .get('follow/:user_id', followers.follow)
-  .get('unfollow/:user_id', followers.unfollow)
+  .get('/', followers.me)
+  .get('/:user_id', followers.list)
   .get('following/:user_id', followers.following);
 
 module.exports = {

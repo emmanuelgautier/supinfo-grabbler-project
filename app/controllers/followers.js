@@ -10,14 +10,6 @@ exports.list = function(req, res, next) {
   });
 };
 
-exports.follow = function() {
-
-};
-
-exports.unfollow = function() {
-
-};
-
 exports.following = function() {
 
 };
