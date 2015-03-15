@@ -36,6 +36,9 @@ var foundationJS = [
 // These files are for your app's JavaScript
 var appJS = [
   'app/assets/js/app.js',
+  'app/assets/js/resources/followers.js',
+  'app/assets/js/resources/gabs.js',
+  'app/assets/js/resources/users.js',
   'app/assets/js/services/authentication.js'
 ];
 
