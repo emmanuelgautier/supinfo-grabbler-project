@@ -21,7 +21,7 @@ module.exports = function(app, sessionStore, config) {
 
   app.use(session({
     name: 'sid',
-    cookie: { 
+    cookie: {
       path: '/',
       httpOnly: true,
       secure: false,

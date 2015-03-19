@@ -1,34 +1,58 @@
-(function() {
-  'use strict';
+define([
+    'require',
+    'angular',
+    'app/routes',
+    'app/config',
+    'app/run',
+    'app/services/authentication',
+    'app/services/session',
+    'app/resources/follower',
+    'app/resources/gab',
+    'app/resources/user',
+    'app/controllers/auth'
+  ],
 
-  angular.module('grabbler', [
-    'ui.router',
-    'ngAnimate',
+  function(
+    require, 
+    angular,
+    routes,
+    config,
+    run,
+    $authentication,
+    $session,
+    Follower,
+    Gab,
+    User,
+    AuthController
+  ) {
+    'use strict';
 
-    //foundation
-    'foundation',
-    'foundation.dynamicRouting',
-    'foundation.dynamicRouting.animations'
-  ])
-    .config(config)
-    .run(run)
-  ;
+    var app = angular.module('grabbler', [
+      'ngRoute',
+      'ngResource',
 
-  config.$inject = ['$urlRouterProvider', '$locationProvider'];
+      'ui.router',
+      'ngAnimate',
 
-  function config($urlProvider, $locationProvider) {
-    $urlProvider.otherwise('/');
+      //foundation
+      'foundation',
+      'foundation.dynamicRouting',
+      'foundation.dynamicRouting.animations'
+    ]);
 
-    $locationProvider.html5Mode({
-      enabled:false,
-      requireBase: false
-    });
+    app.config(config);
 
-    $locationProvider.hashPrefix('!');
-  }
+    //load factories
+    app.factory('$authentication', $authentication)
+      .factory('$session', $session)
+      .factory('Follower', Follower)
+      .factory('Gab', Gab)
+      .factory('User', User);
 
-  function run() {
-    FastClick.attach(document.body);
-  }
+    //load controllers
+    app.controller('AuthController', AuthController);
 
-})();
+    app.run(run);
+
+    return app;
+  });

@@ -21,25 +21,28 @@ var sassPaths = [
   'client/assets/scss',
   'bower_components/foundation-apps/scss'
 ];
+
 // These files include Foundation for Apps and its dependencies
 var foundationJS = [
   'bower_components/fastclick/lib/fastclick.js',
   'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
   'bower_components/tether/tether.js',
-  'bower_components/angular/angular.js',
-  'bower_components/angular-animate/angular-animate.js',
-  'bower_components/angular-ui-router/release/angular-ui-router.js',
-  'bower_components/foundation-apps/js/vendor/**/*.js',
   'bower_components/foundation-apps/js/angular/**/*.js',
   '!bower_components/foundation-apps/js/angular/app.js'
 ];
+
+var angularJS = [
+  'bower_components/angular/angular.js',
+  'bower_components/angular-animate/angular-animate.js',
+  'bower_components/angular-mocks/angular-mocks.js',
+  'bower_components/angular-resource/angular-resource.js',
+  'bower_components/angular-route/angular-route.js',
+  'bower_components/angular-ui-router/release/angular-ui-router.js',
+];
+
 // These files are for your app's JavaScript
 var appJS = [
-  'app/assets/js/app.js',
-  'app/assets/js/resources/followers.js',
-  'app/assets/js/resources/gabs.js',
-  'app/assets/js/resources/users.js',
-  'app/assets/js/services/authentication.js'
+  'app/assets/js/app.js'
 ];
 
 // 3. TASKS
@@ -53,9 +56,33 @@ gulp.task('clean', function() {
 
 // Copies user-created files and Foundation assets
 gulp.task('copy', function() {
+  // Fontawesome
+  gulp.src(['./bower_components/fontawesome/fonts/*'])
+    .pipe(gulp.dest('./public/fonts/'));
+
+  // jQuery
+  gulp.src(['./bower_components/jquery/dist/jquery.min.{map,js}'])
+    .pipe(gulp.dest('./public/js/lib/'));
+
+  // Modernizr
+  gulp.src(['./bower_components/modernizr/modernizr.js'])
+    .pipe(gulp.dest('./public/js/lib/'));
+
+  // Require.js
+  gulp.src(['./bower_components/requirejs/require.js'])
+    .pipe(gulp.dest('./public/js/lib/'));
+
   // Foundation's Angular partials
-  return gulp.src(['./bower_components/foundation-apps/js/angular/components/**/*.html'])
+  gulp.src(['./bower_components/foundation-apps/js/angular/components/**/*.html'])
     .pipe(gulp.dest('./public/components/'));
+
+  // App
+  gulp.src(['./app/assets/js/**/*.js', '!./app/assets/js/main.js'])
+    .pipe(gulp.dest('./public/js/app/'));
+
+  // App main
+  return gulp.src(['./app/assets/js/main.js'])
+    .pipe(gulp.dest('./public/js/'));;
 });
 
 // Compiles Sass
@@ -85,19 +112,24 @@ gulp.task('uglify', function() {
       console.log(e);
     }))
     .pipe($.concat('foundation.js'))
-    .pipe(gulp.dest('./public/js/'))
+    .pipe(gulp.dest('./public/js/lib/'))
   ;
 
-  // App JavaScript
-  return gulp.src(appJS)
+  // Angular JavaScript
+  gulp.src(angularJS)
     .pipe($.uglify({
       beautify: true,
       mangle: false
     }).on('error', function(e) {
       console.log(e);
     }))
-    .pipe($.concat('app.js'))
-    .pipe(gulp.dest('./public/js/'))
+    .pipe($.concat('angular.js'))
+    .pipe(gulp.dest('./public/js/lib/'))
+  ;
+
+  // App JavaScript
+  return gulp.src(appJS)
+    .pipe(gulp.dest('./public/js/app/'))
   ;
 });
 
@@ -105,7 +137,7 @@ gulp.task('uglify', function() {
 gulp.task('route-templates', ['copy'], function() {
   return gulp.src('./app/assets/templates/**/*.html')
     .pipe(router({
-      path: './public/js/routes.js',
+      path: './public/js/app/routes.js',
       root: 'app/assets'
     }))
     .pipe(gulp.dest('./public/templates'))
@@ -128,5 +160,8 @@ gulp.task('default', ['build'], function() {
   gulp.watch(['./app/assets/js/**/*', './js/**/*'], ['uglify']);
 
   // Watch app templates
-  gulp.watch(['./public/templates/**/*.html'], ['route-templates']);
+  gulp.watch(['./app/assets/templates/**/*.html'], ['route-templates']);
+
+  // Watch static files
+  gulp.watch(['./app/assets/**/*.*', '!./app/assets/templates/**/*.*', '!./app/assets/{scss,js}/**/*.*'], ['copy']);
 });
