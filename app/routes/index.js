@@ -3,9 +3,9 @@
 var fs     = require('fs'),
     path   = require('path'),
 
-    router = {};
+    routes = [];
 
-module.exports = function(app) {
+module.exports = function(server) {
   fs.readdirSync(__dirname)
     .filter(function(file) {
       return ((file.indexOf('.') !== 0) && 
@@ -13,8 +13,8 @@ module.exports = function(app) {
               (file.slice(-3) === '.js'));
     })
     .forEach(function(file) {
-      router = require(path.join(__dirname, file));
+      routes = require(path.join(__dirname, file));
 
-      app.use(router.use, router.router);
+      server.route(routes);
     });
 };

@@ -2,7 +2,7 @@
 
 var db = require('../config/db');
 
-exports.list = function(req, res, next) {
+exports.list = function(request, reply) {
   db.User.findAll().then(function(users) {
     res.json(users);
   }).catch(function(err) {
@@ -10,6 +10,10 @@ exports.list = function(req, res, next) {
   });
 };
 
-exports.following = function() {
+exports.me = function(request, reply) {
+
+};
+
+exports.following = function(request, reply) {
 
 };

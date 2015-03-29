@@ -2,7 +2,7 @@
 
 var db = require('../config/db');
 
-exports.list = function(req, res, next) {
+exports.list = function(request, reply) {
   db.User.findAll().then(function(users) {
     res.json(users);
   }).catch(function(err) {
@@ -10,7 +10,7 @@ exports.list = function(req, res, next) {
   });
 };
 
-exports.show = function(req, res, next) {
+exports.show = function(request, reply) {
   db.User.find({ where: { username: req.param('username') }}).then(function(user) {
     res.json(user);
   }).catch(function(err) {
@@ -18,17 +18,11 @@ exports.show = function(req, res, next) {
   });
 };
 
-exports.me = function(req, res) {
+exports.me = function(request, reply) {
   res.json(req.user);
 };
 
-exports.update = function(req, res, next) {
-  if(!req.user) {
-    res.json({ 'unauthenticated': 'Your are not authenticated !' });
-
-    return;
-  }
-
+exports.update = function(request, reply) {
   db.User.update({
     email: req.param('email'),
     gender: req.param('gender'),
@@ -43,4 +37,8 @@ exports.update = function(req, res, next) {
   }).catch(function(err) {
     next(err);
   });
+};
+
+exports.delete = function(request, reply) {
+
 };

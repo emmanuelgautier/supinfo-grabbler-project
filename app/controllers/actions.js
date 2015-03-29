@@ -1,9 +1,9 @@
 'use strict';
 
-exports.follow = function() {
+exports.follow = function(request, reply) {
 
 };
 
-exports.unfollow = function() {
+exports.unfollow = function(request, reply) {
 
 };

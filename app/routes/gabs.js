@@ -1,18 +1,28 @@
 'use strict';
 
-var express = require('express'),
-    router  = express.Router();
-
 var gabs    = require('../controllers/gabs');
 
-router
-  .get('/', gabs.list)
-  .post('/create', gabs.create)
-  .get('/:id', gabs.show)
-  .put('/update/:id', gabs.update)
-  .del('/delete/:id', gabs.delete);
+var routes = [{
+    method: 'GET',
+    path: '/gabs/',
+    handler: gabs.list
+  }, {
+    method: 'POST',
+    path: '/gabs/create',
+    handler: gabs.create
+  }, {
+    method: 'GET',
+    path: '/gabs/{gab}',
+    handler: gabs.show
+  }, {
+    method: 'PUT',
+    path: '/gabs/{gab}',
+    handler: gabs.update
+  }, {
+    method: 'DELETE',
+    path: '/gabs/{gab}',
+    handler: gabs.delete
+  }
+]
 
-module.exports = {
-  use: '/gabs',
-  router: router
-};
+module.exports = routes;

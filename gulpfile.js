@@ -18,7 +18,7 @@ var gulp       = require('gulp'),
 
 // Sass will check these folders for files when you use @import.
 var sassPaths = [
-  'client/assets/scss',
+  'public/assets/scss',
   'bower_components/foundation-apps/scss'
 ];
 
@@ -42,7 +42,7 @@ var angularJS = [
 
 // These files are for your app's JavaScript
 var appJS = [
-  'app/assets/js/app.js'
+  'public/assets/js/app.js'
 ];
 
 // 3. TASKS
@@ -77,17 +77,17 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('./public/components/'));
 
   // App
-  gulp.src(['./app/assets/js/**/*.js', '!./app/assets/js/main.js'])
+  gulp.src(['./public/assets/js/**/*.js', '!./public/assets/js/main.js'])
     .pipe(gulp.dest('./public/js/app/'));
 
   // App main
-  return gulp.src(['./app/assets/js/main.js'])
+  return gulp.src(['./public/assets/js/main.js'])
     .pipe(gulp.dest('./public/js/'));;
 });
 
 // Compiles Sass
 gulp.task('sass', function() {
-  return gulp.src('./app/assets/scss/app.scss')
+  return gulp.src('./public/assets/scss/app.scss')
     .pipe($.rubySass({
       loadPath: sassPaths,
       style: 'nested',
@@ -135,10 +135,10 @@ gulp.task('uglify', function() {
 
 // generates URLs for page templates
 gulp.task('route-templates', ['copy'], function() {
-  return gulp.src('./app/assets/templates/**/*.html')
+  return gulp.src('./public/assets/templates/**/*.html')
     .pipe(router({
       path: './public/js/app/routes.js',
-      root: 'app/assets'
+      root: 'public/assets'
     }))
     .pipe(gulp.dest('./public/templates'))
   ;
@@ -154,14 +154,14 @@ gulp.task('build', function() {
 // Default task: builds your app, starts a server, and recompiles assets when they change
 gulp.task('default', ['build'], function() {
   // Watch Sass
-  gulp.watch(['./app/assets/scss/**/*', './scss/**/*'], ['sass']);
+  gulp.watch(['./public/assets/scss/**/*', './scss/**/*'], ['sass']);
 
   // Watch JavaScript
-  gulp.watch(['./app/assets/js/**/*', './js/**/*'], ['uglify']);
+  gulp.watch(['./public/assets/js/**/*', './js/**/*'], ['uglify']);
 
   // Watch app templates
-  gulp.watch(['./app/assets/templates/**/*.html'], ['route-templates']);
+  gulp.watch(['./public/assets/templates/**/*.html'], ['route-templates']);
 
   // Watch static files
-  gulp.watch(['./app/assets/**/*.*', '!./app/assets/templates/**/*.*', '!./app/assets/{scss,js}/**/*.*'], ['copy']);
+  gulp.watch(['./public/assets/**/*.*', '!./public/assets/templates/**/*.*', '!./public/assets/{scss,js}/**/*.*'], ['copy']);
 });

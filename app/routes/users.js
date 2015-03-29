@@ -1,18 +1,28 @@
 'use strict';
 
-var express = require('express'),
-    router  = express.Router();
-
 var users   = require('../controllers/users');
 
-router
-  .get('/', users.list)
-  .get('/me', users.me)
-  .get('/:id', users.show)
-  .put('/update/:id', users.update)
-  .del('/delete/:id', users.delete);
+var routes = [{
+    method: 'GET',
+    path: '/users/',
+    handler: users.list
+  }, {
+    method: 'GET',
+    path: '/users/{user}',
+    handler: users.show
+  }, {
+    method: 'GET',
+    path: '/me',
+    handler: users.me
+  }, {
+    method: 'PUT',
+    path: '/users/{user}',
+    handler: users.update
+  }, {
+    method: 'DELETE',
+    path: '/users/{user}',
+    handler: users.delete
+  }
+];
 
-module.exports = {
-  use: '/users',
-  router: router
-};
+module.exports = routes;
