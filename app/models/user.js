@@ -15,17 +15,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       set: function(password) {
 
-        var self = this;
+        var salt = bcrypt.genSaltSync(SALT_WORK_FACTOR),
+            hash = bcrypt.hashSync(password, salt);
 
-        bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-          if (err) { throw err; }
-
-          bcrypt.hash(password, salt, function(err, hash) {
-            if (err) { throw err; }
-
-            self.setData('password', hash);
-          });
-        });
+        this.setDataValue('password', hash);
       }
     },
     email: {
@@ -45,10 +38,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(50),
       allowNull: true,
       get: function() {
-        var displayName = this.getData('displayname');
+        var displayName = this.getDataValue('displayname');
 
         if(!displayName) {
-          displayName = this.getData('firstname') + " " + this.getData('lastname');
+          displayName = this.getDataValue('firstname') + " " + this.getDataValue('lastname');
         }
 
         return displayName;
