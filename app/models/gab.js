@@ -4,12 +4,7 @@ module.exports = function(sequelize, DataTypes) {
   var Gab = sequelize.define('Gab', {
     gab: {
       type: DataTypes.STRING(255),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        min: 2,
-        max: 255
-      }
+      allowNull: false
     },
     parent_id: {
       type: DataTypes.INTEGER,

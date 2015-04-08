@@ -8,12 +8,7 @@ module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING(50), 
-      allowNull: false,
-      validate: {
-        min: 2,
-        max: 50,
-        notEmpty: true
-      }
+      allowNull: false
     },
     password: {
       type: DataTypes.STRING(255),
@@ -31,38 +26,20 @@ module.exports = function(sequelize, DataTypes) {
             self.setData('password', hash);
           });
         });
-      },
-      validate: {
-        notEmpty: true,
-        max: 255
       }
     },
     email: {
       type: DataTypes.STRING(255),
-      allowNull: true,
-      validate: {
-        notEmpty: true,
-        min: 5,
-        max: 255,
-        isEmail: true
-      }
+      allowNull: true
     },
     gender: {
       type: DataTypes.ENUM,
       values: ['m', 'f'],
-      allowNull: true,
-      validate: {
-        notEmpty: true,
-        isIn: [['m', 'f']]
-      }
+      allowNull: true
     },
     birthdate: {
       type: DataTypes.DATE,
-      allowNull: true,
-      validate: {
-        notEmpty: true,
-        isDate: true
-      }
+      allowNull: true
     },
     displayname: {
       type: DataTypes.STRING(50),
@@ -75,27 +52,15 @@ module.exports = function(sequelize, DataTypes) {
         }
 
         return displayName;
-      },
-      validate: {
-        min: 2,
-        max: 150
       }
     },
     firstname: {
       type: DataTypes.STRING(50),
-      allowNull: true,
-      validate: {
-        min: 2,
-        max: 50
-      }
+      allowNull: true
     },
     lastname: {
       type: DataTypes.STRING(50),
-      allowNull: true,
-      validate: {
-        min: 2,
-        max: 50
-      }
+      allowNull: true
     },
     avatar: {
       type: DataTypes.INTEGER(10),

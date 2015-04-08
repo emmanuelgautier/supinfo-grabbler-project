@@ -4,30 +4,15 @@ module.exports = function(sequelize, DataTypes) {
   var Image = sequelize.define('Image', {
     name: {
       type: DataTypes.STRING(100),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        min: 2,
-        max: 100
-      }
+      allowNull: false
     },
     url: {
       type: DataTypes.STRING(2083),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        min: 2,
-        max: 2083,
-        isUrl: true
-      }
+      allowNull: false
     },
     comment: {
       type: DataTypes.STRING(255),
-      allowNull: true,
-      validate: {
-        min: 2,
-        max: 255
-      }
+      allowNull: true
     },
     user_id: {
       type: DataTypes.INTEGER,
