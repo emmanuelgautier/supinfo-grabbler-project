@@ -19,13 +19,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: false,
       set: function(password) {
+
+        var self = this;
+
         bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
           if (err) { throw err; }
 
-          bcrypt.hash(user.password, salt, function(err, hash) {
+          bcrypt.hash(password, salt, function(err, hash) {
             if (err) { throw err; }
 
-            this.setData('password', hash);
+            self.setData('password', hash);
           });
         });
       },
@@ -36,7 +39,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
         min: 5,
@@ -47,7 +50,7 @@ module.exports = function(sequelize, DataTypes) {
     gender: {
       type: DataTypes.ENUM,
       values: ['m', 'f'],
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
         isIn: [['m', 'f']]
@@ -55,7 +58,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     birthdate: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
         isDate: true
@@ -96,11 +99,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     avatar: {
       type: DataTypes.INTEGER(10),
-      allowNull: false
+      allowNull: true
     },
     cover: {
       type: DataTypes.INTEGER(10),
-      allowNull: false
+      allowNull: true
     }
   }, {
     tableName: 'user',
@@ -110,6 +113,11 @@ module.exports = function(sequelize, DataTypes) {
     associate: function(models) {
       Client.belongsTo(models.Image, { as: 'avatar' });
       Client.belongsTo(models.Image, { as: 'cover' });
+    },
+    instanceMethods: {
+      checkPassword: function(password) {
+        
+      }
     }
   });
 
