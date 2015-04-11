@@ -1,27 +1,37 @@
 'use strict';
 
-var users   = require('../controllers/users');
+var users = require('../controllers/users'),
+    gabs = require('../controllers/gabs');
 
 var routes = [{
-    method: 'GET',
-    path: '/users/',
-    handler: users.list
-  }, {
     method: 'GET',
     path: '/users/{user}',
     handler: users.show
   }, {
     method: 'GET',
     path: '/me',
-    handler: users.me
+    config: {
+      handler: users.me,
+      auth: 'session'
+    }
   }, {
     method: 'PUT',
     path: '/users/{user}',
-    handler: users.update
+    config: {
+      handler: users.update,
+      auth: 'session'
+    }
   }, {
     method: 'DELETE',
     path: '/users/{user}',
-    handler: users.delete
+    config: {
+      handler: users.delete,
+      auth: 'session'
+    }
+  }, {
+    method: 'GET',
+    path: '/users/{user}/gabs',
+    handler: gabs.list
   }
 ];
 

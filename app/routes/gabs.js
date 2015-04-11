@@ -1,27 +1,32 @@
 'use strict';
 
-var gabs    = require('../controllers/gabs');
+var gabs = require('../controllers/gabs');
 
 var routes = [{
     method: 'GET',
-    path: '/gabs/',
-    handler: gabs.list
+    path: '/gabs/count',
+    config: {
+      handler: gabs.count,
+      auth: 'session'
+    }
   }, {
     method: 'POST',
     path: '/gabs/create',
-    handler: gabs.create
+    config: {
+      handler: gabs.create,
+      auth: 'session'
+    }
   }, {
     method: 'GET',
     path: '/gabs/{gab}',
     handler: gabs.show
   }, {
-    method: 'PUT',
-    path: '/gabs/{gab}',
-    handler: gabs.update
-  }, {
     method: 'DELETE',
     path: '/gabs/{gab}',
-    handler: gabs.delete
+    config: {
+      handler: gabs.delete,
+      auth: 'session'
+    }
   }
 ]
 

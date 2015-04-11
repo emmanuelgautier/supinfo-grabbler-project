@@ -1,5 +1,3 @@
-'use strict';
-
 require(['angular', 'foundation', 'app/app'], 
   function(angular, foundation, app) {
     'use strict';

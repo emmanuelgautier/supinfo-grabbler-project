@@ -12,10 +12,10 @@ exports.show = function(request, reply) {
 
 };
 
-exports.update = function(request, reply) {
+exports.delete = function(request, reply) {
 
 };
 
-exports.delete = function(request, reply) {
+exports.count = function(request, reply) {
 
 };

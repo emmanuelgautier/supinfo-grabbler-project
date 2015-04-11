@@ -1,28 +1,16 @@
 define([
-    'require',
-    'angular',
-    'app/routes',
-    'app/config',
-    'app/run',
-    'app/services/authentication',
-    'app/services/session',
-    'app/resources/follower',
-    'app/resources/gab',
-    'app/resources/user',
+    'require', 'angular',
+    'app/routes', 'app/config', 'app/run',
+    'app/services/authentication', 'app/services/session',
+    'app/resources/follower', 'app/resources/gab', 'app/resources/user',
     'app/controllers/auth'
   ],
 
   function(
-    require, 
-    angular,
-    routes,
-    config,
-    run,
-    $authentication,
-    $session,
-    Follower,
-    Gab,
-    User,
+    require, angular,
+    routes, config, run,
+    $authentication, $session,
+    Follower, Gab, User,
     AuthController
   ) {
     'use strict';

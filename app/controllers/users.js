@@ -2,14 +2,6 @@
 
 var db = require('../config/db');
 
-exports.list = function(request, reply) {
-  db.User.findAll().then(function(users) {
-    res.json(users);
-  }).catch(function(err) {
-    next(err);
-  });
-};
-
 exports.show = function(request, reply) {
   db.User.find({ where: { username: req.param('username') }}).then(function(user) {
     res.json(user);

@@ -5,11 +5,17 @@ var actions = require('../controllers/actions');
 var routes = [{
     method: 'GET',
     path: '/follow/{user}',
-    handler: actions.follow
+    config: {
+      handler: actions.follow,
+      auth: 'session'
+    }
   }, {
     method: 'GET',
     path: '/unfollow/{user}',
-    handler: actions.unfollow
+    config: {
+      handler: actions.unfollow,
+      auth: 'session'
+    }
   }
 ];
 

@@ -5,11 +5,24 @@ var fs     = require('fs'),
 
     routes = [];
 
-module.exports = function(server) {
+module.exports = function(server, config) {
+
+  if(config.env === 'development') {
+    server.route({
+        method: 'GET',
+        path: '/{param*}',
+        handler: {
+            directory: {
+                path: 'public'
+            }
+        }
+    });
+  }
+
   fs.readdirSync(__dirname)
     .filter(function(file) {
       return ((file.indexOf('.') !== 0) && 
-              (file !== 'index.js') && 
+              (file !== 'index.js') &&
               (file.slice(-3) === '.js'));
     })
     .forEach(function(file) {

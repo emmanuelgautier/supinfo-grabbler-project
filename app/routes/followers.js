@@ -1,19 +1,28 @@
 'use strict';
 
-var followers = require('../controllers/followers');
+var follow = require('../controllers/follow');
 
 var routes = [{
     method: 'GET',
-    path: '/followers/',
-    handler: followers.me
+    path: '/followers',
+    config: {
+      handler: follow.followers,
+      auth: 'session'
+    }
   }, {
     method: 'GET',
-    path: '/followers/{user}',
-    handler: followers.list
+    path: '/following',
+    config: {
+      handler: follow.following,
+      auth: 'session'
+    }
   }, {
     method: 'GET',
-    path: '/followers/following/{user}',
-    handler: followers.following
+    path: '/users/{user}/followers',
+    config: {
+      handler: follow.list,
+      auth: 'session'
+    }
   }
 ];
 

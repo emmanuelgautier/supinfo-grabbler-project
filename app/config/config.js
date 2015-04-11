@@ -11,7 +11,15 @@ var config = {
   root: rootPath,
   app: {
     name: 'grabbler',
-    port: 80
+    port: 80,
+    secret: 'key'
+  },
+  cookie: {
+    name: 'sid',
+    path: '/',
+    httpOnly: true,
+    secure: false,
+    maxAge: 3600000
   },
   db: {
     name: 'grabbler',
