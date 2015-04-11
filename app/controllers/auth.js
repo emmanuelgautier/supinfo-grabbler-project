@@ -16,8 +16,6 @@ exports.login = function(request, reply) {
 
   db.User.find({ where: { username: request.payload.username } }).then(function(user) {
 
-    console.log(user);
-
     if(!user || !user.checkPassword(request.payload.password)) {
       return reply(Boom.unauthorized('invalid credentials'));
     }
