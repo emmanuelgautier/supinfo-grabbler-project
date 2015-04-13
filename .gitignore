@@ -35,7 +35,6 @@ Gemfile.lock
 
 bower_components
 public/components/*
-public/css/*
 public/js/*
 public/fonts/*
 public/templates/*
