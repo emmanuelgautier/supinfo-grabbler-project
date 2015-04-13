@@ -1,7 +1,7 @@
 {
-  "name": "grabbler",
+  "name": "gabbler",
   "version": "0.0.1",
-  "description": "supinfo grabbler project",
+  "description": "supinfo gabbler project",
   "main": "app.js",
   "private": true,
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "keywords": [
     "supinfo",
-    "grabbler"
+    "gabbler"
   ],
   "author": "Supinfo",
   "license": "GPL",

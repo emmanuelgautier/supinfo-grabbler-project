@@ -1,17 +1,17 @@
 {
-  "name": "grabbler",
+  "name": "gabbler",
   "version": "0.0.1",
   "authors": [
     "Emmanuel Gautier <manu.gautier1394@gmail.com>"
   ],
-  "description": "supinfo grabbler project",
+  "description": "supinfo gabbler project",
   "main": "app.js",
   "moduleType": [
     "node"
   ],
   "keywords": [
     "supinfo",
-    "grabbler"
+    "gabbler"
   ],
   "license": "GPL",
   "private": true,

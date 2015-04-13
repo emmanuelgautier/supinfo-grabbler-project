@@ -10,7 +10,7 @@ var config = {
   env: env,
   root: rootPath,
   app: {
-    name: 'grabbler',
+    name: 'gabbler',
     port: 80,
     secret: 'key'
   },
@@ -22,7 +22,7 @@ var config = {
     maxAge: 3600000
   },
   db: {
-    name: 'grabbler',
+    name: 'gabbler',
     username: 'root',
     password: null,
     dialect: 'mysql',
