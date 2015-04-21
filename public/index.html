@@ -36,30 +36,18 @@
     <script type="text/javascript" src="/js/lib/require.js" data-main="main"></script>
   </head>
   <body ng-cloak>
-    <div class="grid-frame vertical">
+    <div class="grid-frame vertical" ng-controller="AppController">
       <div class="grid-content shrink" style="padding: 0;">
-        <div class="menu-group primary">
-          <div class="menu-group-left">
-            <ul class="menu-bar primary condense">
-              <li><a ui-sref="home"><strong>Gabbler</strong></a></li>
-              <li><a ui-sref="home">Home</a></li>
-            </ul>
-          </div>
-          <div class="menu-group-right">
-            <ul class="menu-bar primary condense">
-              <li><a href="#" zf-open="loginModal">Login</a></li>
-              <li><a href="#" zf-open="registerModal">Register</a></li>
-            </ul>
-          </div>
-        </div>
+        <div ng-include="'/templates/partials/nav.html'"></div>
       </div>
       <div class="grid-content">
         <div class="grid-container">
           <div ng-class="['ui-animation']" ui-view></div>
         </div>
       </div>
-      <div ng-include="'templates/login.html'"></div>
-      <div ng-include="'templates/register.html'"></div>
+      <div ng-include="'/templates/modals/login.html'"></div>
+      <div ng-include="'/templates/modals/register.html'"></div>
+      <div ng-include="'/templates/modals/write.html'"></div>
     </div>
   </body>
 </html>

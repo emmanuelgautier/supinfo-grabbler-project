@@ -1,17 +1,18 @@
 define([], function() {
   'use strict';
 
-  return ['$scope', '$http', '$location', '$session',
-    function($scope, $http, $location, $session) {
+  return ['$scope', '$http', '$location', '$authentication', 'FoundationApi',
+    function($scope, $http, $location, $authentication, FoundationApi) {
       $scope.login = function() {
         $http.post('/login', {
           username: this.username,
-          password: this.password,
-          firstname: this.firstname,
-          lastname: this.lastname,
-          birthdate: this.birthdate
+          password: this.password
         }).success(function(data, status) {
-          $session.user = data;
+          $authentication.setUser(data);
+
+          FoundationApi.publish('loginModal', 'close');
+
+          $location.path('/timeline');
         }).error(function(data, status) {
           this.password = null;
         });
@@ -20,19 +21,24 @@ define([], function() {
       $scope.register = function() {
         $http.post('/register', {
           username: this.username,
+          email: this.email,
+          birthdate: this.birthdate,
+          firstname: this.firstname,
+          lastname: this.lastname,
           password: this.password,
           password_confirmation: this.password_confirmation
         }).success(function(data, status) {
-
+          FoundationApi.publish('registerModal', 'close');
+          FoundationApi.publish('loginModal', 'open');
         }).error(function(data, status) {
 
         });
       };
 
       $scope.logout = function() {
-        $http.get('/logout');
-
-        $session.user = null;
+        $http.get('/logout').success(function() {
+          $authentication.logout();
+        });
       };
     }
   ];

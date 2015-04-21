@@ -14,9 +14,20 @@ exports.login = function(request, reply) {
     return reply(Boom.create(200));
   }
 
-  db.User.find({ where: { username: request.payload.username } }).then(function(user) {
+  var inputs = {
+    username: request.payload.username,
+    password: request.payload.password
+  };
 
-    if(!user || !user.checkPassword(request.payload.password)) {
+  var validator = Joi.validate(inputs, LoginSchema);
+
+  if(validator.error !== null) {
+    return reply(Boom.badRequest(validator.error));
+  }
+
+  db.User.find({ where: { username: inputs.username } }).then(function(user) {
+
+    if(!user || !user.checkPassword(inputs.password)) {
       return reply(Boom.unauthorized('invalid credentials'));
     }
 
@@ -34,19 +45,22 @@ exports.register = function(request, reply) {
     return reply(Boom.create(200));
   }
 
-  var validator = Joi.validate({
+  var inputs = {
     username: request.payload.username,
+    email: request.payload.email,
+    birthdate: (new Date(request.payload.birthdate)),
+    firstname: request.payload.firstname,
+    lastname: request.payload.lastname,
     password: request.payload.password
-  }, RegisterSchema);
+  };
+
+  var validator = Joi.validate(inputs, RegisterSchema);
 
   if(validator.error !== null) {
     return reply(Boom.badRequest(validator.error));
   }
 
-  db.User.create({
-    username: request.payload.username,
-    password: request.payload.password
-  }).then(function(user) {
+  db.User.create(inputs).then(function(user) {
 
     request.auth.session.set(user);
 

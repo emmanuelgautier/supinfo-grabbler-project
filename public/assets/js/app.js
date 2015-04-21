@@ -3,7 +3,8 @@ define([
     'app/routes', 'app/config', 'app/run',
     'app/services/authentication', 'app/services/session',
     'app/resources/follower', 'app/resources/gab', 'app/resources/user',
-    'app/controllers/auth'
+    'app/directives/gab', 'app/directives/user',
+    'app/controllers/app', 'app/controllers/auth', 'app/controllers/user', 'app/controllers/gab'
   ],
 
   function(
@@ -11,7 +12,8 @@ define([
     routes, config, run,
     $authentication, $session,
     Follower, Gab, User,
-    AuthController
+    GabDirective, UserDirective,
+    AppController, AuthController, UserController, GabController
   ) {
     'use strict';
 
@@ -38,7 +40,14 @@ define([
       .factory('User', User);
 
     //load controllers
-    app.controller('AuthController', AuthController);
+    app.controller('AuthController', AuthController)
+      .controller('AppController', AppController)
+      .controller('UserController', UserController)
+      .controller('GabController', GabController);
+
+    //load directive
+    app.directive('gab', GabDirective)
+      .directive('user', UserDirective);
 
     app.run(run);
 
