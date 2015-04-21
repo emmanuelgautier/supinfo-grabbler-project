@@ -145,16 +145,11 @@ gulp.task('route-templates', ['copy'], function() {
 });
 
 // Builds your entire app once, without starting a server
-gulp.task('build', function() {
-  sequence('clean', ['copy', 'sass', 'uglify'], 'route-templates', function() {
-    console.log("Successfully built.");
-  })
+gulp.task('build', function(callback) {
+  sequence('clean', ['copy', 'sass', 'uglify', 'route-templates'], callback)
 });
 
-// Default task: builds your app, starts a server, and recompiles assets when they change
-gulp.task('default', function() {
-  sequence('build');
-
+gulp.task('watch', function() {
   // Watch Sass
   gulp.watch(['./public/assets/scss/**/*'], ['sass']);
 
@@ -166,4 +161,9 @@ gulp.task('default', function() {
 
   // Watch static files
   gulp.watch(['./public/assets/**/*.*', '!./public/assets/templates/**/*.*', '!./public/assets/{scss}/**/*.*'], ['copy']);
+});
+
+// Default task: builds your app and recompiles assets when they change
+gulp.task('default', function() {
+  sequence('build', 'watch');
 });
