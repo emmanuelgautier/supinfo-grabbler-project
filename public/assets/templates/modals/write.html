@@ -1,14 +1,15 @@
 <div zf-modal="" id="createGabModal" class="collapse">
-    <div class="grid-block vertical">
+    <div class="grid-block vertical" ng-controller="GabController" ng-init="create()">
         <div class="primary title-bar">
             <div class="center title">Compose a new Gab</div>
             <span zf-close="" class="right"><a>×</a></span>
         </div>
         <div class="grid-content padding" style="padding-top: 1rem;">
-            <form>
+            <form novalidate ng-submit="saveCreate()">
                 <label>
-                    <textarea></textarea>
+                    <textarea ng-model="gab"></textarea>
                 </label>
+                <input type="submit" class="float-right button" value="Gab">
             </form>
         </div>
     </div>

@@ -11,7 +11,7 @@ var routes = [{
     }
   }, {
     method: 'POST',
-    path: '/gabs/create',
+    path: '/gabs',
     config: {
       handler: gabs.create,
       auth: 'session'
