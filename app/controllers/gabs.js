@@ -23,12 +23,12 @@ exports.create = function(request, reply) {
   }
 
   var gab = inputs;
-  	gab.user_id = request.auth.credentials.id;
+    gab.user_id = request.auth.credentials.id;
 
   db.Gab.create(gab).then(function(gab) {
-  	reply(gab);
+    reply(gab, 201);
   }).catch(function(err) {
-  	reply(Boom.badImplementation());
+    reply(Boom.badImplementation());
   });
 };
 
