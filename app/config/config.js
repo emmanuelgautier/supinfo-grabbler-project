@@ -11,6 +11,7 @@ var config = {
   root: rootPath,
   app: {
     name: 'gabbler',
+    host: 'localhost',
     port: 80,
     secret: 'key'
   },
@@ -30,6 +31,13 @@ var config = {
     models: {
       path: rootPath + '/app/models'
     }
+  },
+  logging: {
+    interval: 1000,
+    logDirPath: rootPath + '/logs',
+    logPrefix: 'log',
+    errorDirPath: rootPath + '/logs',
+    errorPrefix: 'error'
   }
 };
 

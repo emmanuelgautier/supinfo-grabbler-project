@@ -15,14 +15,17 @@ exports.me = function(request, reply) {
 };
 
 exports.update = function(request, reply) {
-  db.User.update({
-    email: req.param('email'),
-    gender: req.param('gender'),
-    birthdate: req.param('gender'),
-    displayName: req.param('displayName'),
-    firstname: req.param('firstname'),
-    lastname: req.param('lastname')
-  }, req.user.id).then(function(user) {
+
+  var user = {
+    email: request.payload.email,
+    gender: request.payload.gender,
+    birthdate: request.payload.gender,
+    displayName: request.payload.displayName,
+    firstname: request.payload.firstname,
+    lastname: request.payload.lastname
+  };
+
+  db.User.update(user, { where: { id: request.user.id } }).then(function(user) {
     req.user = user;
 
     res.json(user);

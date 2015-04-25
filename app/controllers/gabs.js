@@ -5,25 +5,16 @@ var Boom = require('Boom'),
 
 var db = require('../config/db');
 
-var GabSchema = require('../validators/GabSchema');
-
 exports.list = function(request, reply) {
 
 };
 
 exports.create = function(request, reply) {
-  var inputs = {
+
+  var gab = {
     gab: request.payload.gab,
+    user_id: request.auth.credentials.id
   };
-
-  var validator = Joi.validate(inputs, GabSchema);
-
-  if(validator.error !== null) {
-    return reply(Boom.badRequest(validator.error));
-  }
-
-  var gab = inputs;
-    gab.user_id = request.auth.credentials.id;
 
   db.Gab.create(gab).then(function(gab) {
     reply(gab, 201);

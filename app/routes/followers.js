@@ -1,27 +1,34 @@
 'use strict';
 
+var Joi = require('joi');
+
 var follow = require('../controllers/follow');
 
 var routes = [{
     method: 'GET',
     path: '/followers',
+    handler: follow.followers,
     config: {
-      handler: follow.followers,
       auth: 'session'
     }
   }, {
     method: 'GET',
     path: '/following',
+    handler: follow.following,
     config: {
-      handler: follow.following,
       auth: 'session'
     }
   }, {
     method: 'GET',
     path: '/users/{user}/followers',
+    handler: follow.list,
     config: {
-      handler: follow.list,
-      auth: 'session'
+      auth: 'session',
+      validate: {
+        params: {
+          user: Joi.number().integer().min(1)
+        }
+      }
     }
   }
 ];

@@ -1,12 +1,8 @@
 'use strict';
 
-var Boom = require('Boom'),
-    Joi = require('joi');
+var Boom = require('Boom');
 
 var db = require('../config/db');
-
-var RegisterSchema = require('../validators/RegisterSchema'),
-    LoginSchema = require('../validators/LoginSchema');
 
 exports.login = function(request, reply) {
 
@@ -18,12 +14,6 @@ exports.login = function(request, reply) {
     username: request.payload.username,
     password: request.payload.password
   };
-
-  var validator = Joi.validate(inputs, LoginSchema);
-
-  if(validator.error !== null) {
-    return reply(Boom.badRequest(validator.error));
-  }
 
   db.User.find({ where: { username: inputs.username } }).then(function(user) {
 
@@ -41,32 +31,28 @@ exports.login = function(request, reply) {
 
 exports.register = function(request, reply) {
 
-  if (request.auth.isAuthenticated) {
-    return reply(Boom.create(200));
-  }
-
-  var inputs = {
+  var user = {
     username: request.payload.username,
     email: request.payload.email,
+    gender: req.payload.gender,
     birthdate: (new Date(request.payload.birthdate)),
     firstname: request.payload.firstname,
     lastname: request.payload.lastname,
     password: request.payload.password
   };
 
-  var validator = Joi.validate(inputs, RegisterSchema);
+  db.User.findOne(user.username, function(user) {
+    if(user) {
+      return reply(Boom.badRequest('Username already used'));
+    }
 
-  if(validator.error !== null) {
-    return reply(Boom.badRequest(validator.error));
-  }
+    db.User.create(user).then(function(user) {
+      request.auth.session.set(user);
 
-  db.User.create(inputs).then(function(user) {
-
-    request.auth.session.set(user);
-
-    reply(user);
-  }).catch(function(err) {
-    reply(Boom.badImplementation());
+      reply(user);
+    }).catch(function(err) {
+      reply(Boom.badImplementation());
+    });
   });
 };
 

@@ -23,16 +23,16 @@ module.exports = function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: false
     },
     gender: {
       type: DataTypes.ENUM,
       values: ['m', 'f'],
-      allowNull: true
+      allowNull: false
     },
     birthdate: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: false
     },
     displayname: {
       type: DataTypes.STRING(50),

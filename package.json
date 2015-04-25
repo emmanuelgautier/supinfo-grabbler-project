@@ -20,9 +20,13 @@
   "dependencies": {
     "bcryptjs": "^2.1.0",
     "boom": "^2.7.0",
+    "good": "^6.1.1",
+    "good-console": "^5.0.0",
+    "good-file": "^5.0.0",
     "hapi": "^8.4.0",
     "hapi-auth-cookie": "^2.0.0",
     "joi": "^6.1.0",
+    "lodash": "^3.7.0",
     "mysql": "^2.5.5",
     "sequelize": "^2.0.3"
   },
