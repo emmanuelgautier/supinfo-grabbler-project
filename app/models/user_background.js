@@ -11,9 +11,11 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     paranoid: false,
     underscored: true,
-    associate: function(models) {
-      UserBackground.belongsTo(models.Image);
-      UserBackground.belongsTo(models.User);
+    classMethods: {
+      associate: function(models) {
+        UserBackground.belongsTo(models.Image);
+        UserBackground.belongsTo(models.User);
+      }
     }
   });
 

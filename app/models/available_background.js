@@ -11,8 +11,10 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     paranoid: false,
     underscored: true,
-    associate: function(models) {
-      AvailableBackground.belongsTo(models.Image, { foreignKey: 'image_id' });
+    classMethods: {
+      associate: function(models) {
+        AvailableBackground.belongsTo(models.Image, { foreignKey: 'image_id' });
+      }
     }
   });
 

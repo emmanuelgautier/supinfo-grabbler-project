@@ -15,9 +15,11 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     paranoid: false,
     underscored: true,
-    associate: function(models) {
-      Follower.belongsTo(models.User, {  foreignKey: 'follower_id' });
-      Follower.belongsTo(models.User, {  foreignKey: 'user_id' });
+    classMethods: {
+      associate: function(models) {
+        Follower.belongsTo(models.User, {  foreignKey: 'follower_id' });
+        Follower.belongsTo(models.User, {  foreignKey: 'user_id' });
+      }
     }
   });
 

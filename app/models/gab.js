@@ -19,9 +19,11 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: true,
     paranoid: true,
     underscored: true,
-    associate: function(models) {
-      Gab.belongsTo(models.Gab, { as: 'parent',  foreignKey: 'parent_id' });
-      Gab.belongsTo(models.User, { foreignKey: 'user_id' });
+    classMethods: {
+      associate: function(models) {
+        Gab.belongsTo(models.Gab, { as: 'parent',  foreignKey: 'parent_id' });
+        Gab.belongsTo(models.User, { foreignKey: 'user_id' });
+      }
     }
   });
 

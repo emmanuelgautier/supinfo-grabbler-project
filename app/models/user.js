@@ -55,11 +55,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(50),
       allowNull: true
     },
-    avatar: {
+    avatar_id: {
       type: DataTypes.INTEGER(10),
       allowNull: true
     },
-    cover: {
+    cover_id: {
       type: DataTypes.INTEGER(10),
       allowNull: true
     }
@@ -68,9 +68,11 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: true,
     paranoid: true,
     underscored: true,
-    associate: function(models) {
-      Client.belongsTo(models.Image, { as: 'avatar' });
-      Client.belongsTo(models.Image, { as: 'cover' });
+    classMethods: {
+      associate: function(models) {
+        User.belongsTo(models.Image, { as: 'avatar' });
+        User.belongsTo(models.Image, { as: 'cover' });
+      }
     },
     instanceMethods: {
       checkPassword: function(password) {
