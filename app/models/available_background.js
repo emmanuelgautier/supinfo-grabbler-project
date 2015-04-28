@@ -3,8 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   var AvailableBackground = sequelize.define('Available Background', {
     image_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.INTEGER
     }
   }, {
     tableName: 'available_background',

@@ -56,12 +56,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     avatar_id: {
-      type: DataTypes.INTEGER(10),
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     cover_id: {
-      type: DataTypes.INTEGER(10),
-      allowNull: true
+      type: DataTypes.INTEGER
     }
   }, {
     tableName: 'user',

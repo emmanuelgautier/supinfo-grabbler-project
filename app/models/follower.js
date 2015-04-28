@@ -3,12 +3,10 @@
 module.exports = function(sequelize, DataTypes) {
   var Follower = sequelize.define('Follower', {
     follower_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.INTEGER
     },
     user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.INTEGER
     }
   }, {
     tableName: 'follower',
