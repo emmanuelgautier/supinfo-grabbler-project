@@ -146,7 +146,7 @@ gulp.task('route-templates', ['copy'], function() {
 
 // Builds your entire app once, without starting a server
 gulp.task('build', function(callback) {
-  sequence('clean', ['copy', 'sass', 'uglify', 'route-templates'], callback)
+  sequence('clean', ['copy', 'sass', 'uglify', 'route-templates'], callback);
 });
 
 gulp.task('watch', function() {
@@ -154,7 +154,7 @@ gulp.task('watch', function() {
   gulp.watch(['./public/assets/scss/**/*'], ['sass']);
 
   // Watch JavaScript
-  gulp.watch(['./public/assets/js/**/*', './public/js/**/*'], ['uglify']);
+  gulp.watch(['./public/assets/js/**/*'], ['uglify']);
 
   // Watch app templates
   gulp.watch(['./public/assets/templates/**/*.html'], ['route-templates']);
