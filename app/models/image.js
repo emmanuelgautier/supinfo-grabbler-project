@@ -13,18 +13,15 @@ module.exports = function(sequelize, DataTypes) {
     comment: {
       type: DataTypes.STRING(255),
       allowNull: true
-    },
-    user_id: {
-      type: DataTypes.INTEGER
     }
   }, {
-    tableName: 'image',
+    tableName: 'images',
     timestamps: true,
     paranoid: false,
     underscored: true,
     classMethods: {
       associate: function(models) {
-        Image.belongsTo(models.User, { foreignKey: 'user_id' });
+        Image.belongsTo(models.User, { as: 'user', foreignKey: 'user_id' });
       }
     }
   });

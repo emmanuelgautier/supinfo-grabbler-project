@@ -55,21 +55,23 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(50),
       allowNull: true
     },
-    avatar_id: {
-      type: DataTypes.INTEGER
-    },
-    cover_id: {
-      type: DataTypes.INTEGER
+    color: {
+      type: DataTypes.STRING(10),
+      allowNull: true
     }
   }, {
-    tableName: 'user',
+    tableName: 'users',
     timestamps: true,
     paranoid: true,
     underscored: true,
     classMethods: {
       associate: function(models) {
-        User.belongsTo(models.Image, { as: 'avatar' });
-        User.belongsTo(models.Image, { as: 'cover' });
+        User.belongsTo(models.Image, { as: 'avatar', foreignKey: 'avatar_id', constraints: false });
+        User.belongsTo(models.Image, { as: 'cover', foreignKey: 'cover_id', constraints: false });
+        User.belongsTo(models.Image, { as: 'background', foreignKey: 'background_id', constraints: false });
+
+        User.hasMany(models.Gab, { as: 'gabs', foreignKey: 'user_id', constraints: false });
+        User.belongsToMany(models.User, { as: 'followers', through: 'followers', constraints: false });
       }
     },
     instanceMethods: {

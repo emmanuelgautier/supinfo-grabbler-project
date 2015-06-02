@@ -1,18 +1,14 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var AvailableBackground = sequelize.define('Available Background', {
-    image_id: {
-      type: DataTypes.INTEGER
-    }
-  }, {
-    tableName: 'available_background',
+  var AvailableBackground = sequelize.define('AvailableBackground', {}, {
+    tableName: 'available_backgrounds',
     timestamps: false,
     paranoid: false,
     underscored: true,
     classMethods: {
       associate: function(models) {
-        AvailableBackground.belongsTo(models.Image, { foreignKey: 'image_id' });
+        AvailableBackground.belongsTo(models.Image, { as: 'image', foreignKey: 'image_id' });
       }
     }
   });
