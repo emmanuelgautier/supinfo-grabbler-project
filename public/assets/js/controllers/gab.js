@@ -1,14 +1,21 @@
 define([], function() {
   'use strict';
 
-  return ['$scope', 'Gab', 'User', 'Follower',
-    function($scope, Gab, Follower) {
+  return ['$scope', '$http', '$stateParams', 'Gab', 'Follower', 'FoundationApi',
+    function($scope, $http, $stateParams, Gab, Follower, FoundationApi) {
       $scope.list = function() {
+        if(!$stateParams.user) {
+          $http.get('/timeline').success(function(gabs) {
+            console.log(gabs);
+            $scope.gabs = gabs;
+          });
+        } else {
 
+        }
       };
 
       $scope.create = function() {
-
+        //
       };
 
       $scope.saveCreate = function() {

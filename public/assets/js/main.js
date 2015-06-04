@@ -1,4 +1,4 @@
-require(['angular', 'foundation', 'app/app'], 
+require(['angular', 'ngStorage', 'foundation', 'app/app'], 
   function(angular, foundation, app) {
     'use strict';
 

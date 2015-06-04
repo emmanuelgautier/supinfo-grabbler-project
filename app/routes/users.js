@@ -3,7 +3,6 @@
 var Joi = require('joi');
 
 var UserValidator = require('../config/validator').User,
-    UserRequiredValidator = require('../config/validator').UserRequired,
     GabValidator = require('../config/validator').Gab;
 
 var users = require('../controllers/users'),
@@ -37,7 +36,7 @@ var routes = [{
         params: {
           user: Joi.number().integer().min(1)
         },
-        payload: UserRequiredValidator
+        payload: UserValidator.Required
       }
     }
   }, {
@@ -54,14 +53,14 @@ var routes = [{
     }
   }, {
     method: 'GET',
-    path: '/users/{user}/gabs',
-    handler: gabs.list,
+    path: '/timeline',
+    handler: gabs.timeline,
     config: {
+      auth: 'session',
       validate: {
         params: {
-          user: Joi.number().integer().min(1)
-        },
-        query: GabValidator
+          query: GabValidator.Schema
+        }
       }
     }
   }

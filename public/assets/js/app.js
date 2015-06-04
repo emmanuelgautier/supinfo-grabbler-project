@@ -52,4 +52,5 @@ define([
     app.run(run);
 
     return app;
-  });
+  }
+);

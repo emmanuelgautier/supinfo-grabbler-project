@@ -3,6 +3,7 @@
 var db = require('../config/db');
 
 exports.list = function(request, reply) {
+
   db.User.findAll().then(function(users) {
     res.json(users);
   }).catch(function(err) {

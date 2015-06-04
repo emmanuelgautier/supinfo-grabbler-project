@@ -2,7 +2,8 @@
   <div class="menu-group-left">
     <ul class="menu-bar primary condense">
       <li><a ui-sref="home"><strong>Gabbler</strong></a></li>
-      <li><a ui-sref="home">Home</a></li>
+      <li ng-show="$authentication.isAuthenticated()"><a ui-sref="timeline">Home</a></li>
+      <li ng-hide="$authentication.isAuthenticated()"><a ui-sref="home">Home</a></li>
     </ul>
   </div>
   <div class="menu-group-right">

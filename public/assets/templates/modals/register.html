@@ -26,6 +26,11 @@
                     Lastname
                     <input type="text" ng-model="lastname" placeholder="Lastname" required>
                 </label>
+                <div class="grid-content">
+                    <label>Sexe</label>
+                    <input type="radio" ng-model="gender" value="f" id="female"><label for="female">Female</label>
+                    <input type="radio" ng-model="gender" value="m" id="male"><label for="male">Male</label>
+                </div>
                 <label>
                     Password
                     <input type="password" ng-model="password" placeholder="Password" required>

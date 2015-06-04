@@ -14,7 +14,7 @@ define([], function() {
 
           $location.path('/timeline');
         }).error(function(data, status) {
-          this.password = null;
+          $scope.password = null;
         });
       };
 
@@ -25,8 +25,8 @@ define([], function() {
           birthdate: this.birthdate,
           firstname: this.firstname,
           lastname: this.lastname,
-          password: this.password,
-          password_confirmation: this.password_confirmation
+          gender: this.gender,
+          password: this.password
         }).success(function(data, status) {
           FoundationApi.publish('registerModal', 'close');
           FoundationApi.publish('loginModal', 'open');

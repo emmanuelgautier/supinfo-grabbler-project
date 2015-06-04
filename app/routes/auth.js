@@ -2,8 +2,8 @@
 
 var auth = require('../controllers/auth');
 
-var LoginRequiredValidator = require('../config/validator').LoginRequired,
-    UserRequiredValidator = require('../config/validator').UserRequired;
+var LoginValidator = require('../config/validator').Login,
+    UserValidator = require('../config/validator').User;
 
 var routes = [{
     method: 'POST',
@@ -11,7 +11,7 @@ var routes = [{
     handler: auth.login,
     config: {
       validate: {
-        payload: LoginRequiredValidator
+        payload: LoginValidator.Required
       }
     }
   }, {
@@ -20,7 +20,7 @@ var routes = [{
     handler: auth.register,
     config: {
       validate: {
-        payload: UserRequiredValidator
+        payload: UserValidator.Required
       }
     }
   }, {

@@ -3,34 +3,36 @@
 var db = require('../config/db');
 
 exports.show = function(request, reply) {
-  db.User.find({ where: { username: req.param('username') }}).then(function(user) {
-    res.json(user);
+
+  db.User.find({ where: { username: req.params.username }}).then(function(user) {
+    reply(user);
   }).catch(function(err) {
-    next(err);
+    reply(Boom.badImplementation());
   });
 };
 
 exports.me = function(request, reply) {
-  res.json(req.user);
+
+  reply(request.auth.credentials);
 };
 
 exports.update = function(request, reply) {
 
-  var user = {
+  var user = request.auth.credentials;
+
+  user.update({
     email: request.payload.email,
     gender: request.payload.gender,
     birthdate: request.payload.gender,
     displayName: request.payload.displayName,
     firstname: request.payload.firstname,
-    lastname: request.payload.lastname
-  };
+    lastname: request.payload.lastname 
+  }).then(function(user) {
+    request.auth.credentials = user;
 
-  db.User.update(user, { where: { id: request.user.id } }).then(function(user) {
-    req.user = user;
-
-    res.json(user);
+    reply(user);
   }).catch(function(err) {
-    next(err);
+    reply(Boom.badImplementation());
   });
 };
 

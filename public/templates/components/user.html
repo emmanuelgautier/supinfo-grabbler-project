@@ -1,14 +1,15 @@
 <div class="card">
-  <img ng-src="gab.cover.url">
-  <div class="card-divider">
-    <div class="grid-block">
-      <img ng-src="gab.avatar.url"></div>
+    <img ng-if="user.cover" ng-src="{{ user.cover.url }}">
+    <div class="card-divider">
+        <div class="grid-block">
+            <img ng-src="{{ user.avatar.url }}">
+        </div>
     </div>
     <div class="grid-block">
-      <h4>{{ gab.displayname }}</h4>
-      <span>@{{ gab.username }}</span>
+        <h4>{{ user.displayname }}</h4>
+        <span>@{{ user.username }}</span>
     </div>
-  </div>
-  <div class="card-section">
-  </div>
+</div>
+<div class="card-section">
+
 </div>

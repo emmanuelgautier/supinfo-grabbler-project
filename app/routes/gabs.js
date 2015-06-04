@@ -2,26 +2,36 @@
 
 var Joi = require('joi');
 
-var GabValidator = require('../config/validator').Gab,
-    GabRequiredValidator = require('../config/validator').GabRequired;
+var GabValidator = require('../config/validator').Gab;
 
 var gabs = require('../controllers/gabs');
 
 var routes = [{
     method: 'GET',
+    path: '/gabs',
+    handler: gabs.list,
+    config: {
+      validate: {
+        query: GabValidator.Schema
+      }
+    }
+  }, {
+    method: 'GET',
     path: '/gabs/count',
     handler: gabs.count,
     config: {
-      auth: 'session'
+      validate: {
+        query: GabValidator.Schema
+      }
     }
   }, {
     method: 'POST',
-    path: '/gabs/',
+    path: '/gabs',
     handler: gabs.create,
     config: {
       auth: 'session',
       validate: {
-        payload: GabRequiredValidator
+        payload: GabValidator.Required
       }
     }
   }, {
