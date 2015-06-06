@@ -19,6 +19,9 @@ module.exports = function(sequelize, DataTypes) {
             hash = bcrypt.hashSync(password, salt);
 
         this.setDataValue('password', hash);
+      },
+      get: function() {
+        return null;
       }
     },
     email: {
