@@ -1,5 +1,7 @@
 'use strict';
 
+var Boom = require('boom');
+
 var db = require('../config/db');
 
 exports.list = function(request, reply) {
