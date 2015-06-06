@@ -1,13 +1,26 @@
 'use strict';
 
-var Boom = require('Boom'),
-    Joi = require('joi');
+var Boom = require('boom');
 
 var db = require('../config/db');
 
 exports.list = function(request, reply) {
 
-  db.Gab.findAll({ where: request.query }).then(function(gabs) {
+  var include = [{
+    model: db.User,
+    as: 'user'
+  }];
+
+  if(request.query.user) {
+    include[0].where = { username: request.query.user };
+
+    delete request.query.user;
+  }
+
+  db.Gab.findAll({ 
+    where: request.query,
+    include: include
+  }).then(function(gabs) {
     reply(gabs);
   }).catch(function(err) {
     reply(Boom.badImplementation());
@@ -24,7 +37,7 @@ exports.timeline = function(request, reply) {
 exports.count = function(request, reply) {
 
   db.Gab.count({ where: request.query }).then(function(number) {
-    reply({ number: number })
+    reply(number)
   }).catch(function(err) {
     reply(Boom.badImplementation());
   });
@@ -48,7 +61,13 @@ exports.create = function(request, reply) {
 
 exports.show = function(request, reply) {
 
-  db.Gab.findOne(request.params.gab).then(function(gab) {
+  db.Gab.findOne({
+    where: { id: request.params.gab },
+    include: [{
+      model: db.User,
+      as: 'user'
+    }]
+  }).then(function(gab) {
     if(!gab) {
       return reply(Boom.notFound());
     }
