@@ -23,13 +23,14 @@
     "tests"
   ],
   "dependencies": {
-    "foundation-apps": "~1.0.3",
+    "foundation-apps": "~1.1.x",
     "angular": "~1.3.x",
     "angular-route": "~1.3.x",
     "angular-resource": "~1.3.x",
     "fontawesome": "~4.3.x",
-    "requirejs": "~2.1.16",
-    "modernizr": "~2.8.3",
-    "jquery": "~2.1.3"
+    "requirejs": "~2.1.x",
+    "modernizr": "~2.8.x",
+    "jquery": "~2.1.x",
+    "ngstorage": "~0.3.4"
   }
 }

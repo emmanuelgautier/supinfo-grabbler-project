@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Gab.belongsTo(models.Gab, { as: 'parent',  foreignKey: 'parent_id' });
-        Gab.belongsTo(models.User, { foreignKey: 'user_id' });
+        Gab.belongsTo(models.User, { as: 'user', foreignKey: 'user_id' });
 
         Gab.hasOne(models.Gab, { as: 'gab_child', foreignKey: 'parent_id', constraints: false });
         Gab.belongsToMany(models.User, { as: 'favorite', through: 'favorites', constraints: false });

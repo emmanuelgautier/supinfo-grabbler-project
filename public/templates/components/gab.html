@@ -1,4 +1,7 @@
 <article>
-    <h5><a href="#">{{ gab.user.displayname }}</a></h5>{{ gab.user.username }}
+    <h5><a ui-sref="users.show({ username: '{{ gab.user.username }}' })">{{ gab.user.displayname }}</a></h5><span>@{{ gab.user.username }}</span>
     <p>{{ gab.gab }}</p>
+    <div>
+		
+    </div>
 </article>

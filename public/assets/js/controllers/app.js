@@ -1,8 +1,8 @@
 define([], function() {
   'use strict';
 
-  return ['$scope', '$authentication', '$session', 'User',
-    function($scope, $authentication, $session, User) {
+  return ['$scope', '$authentication', '$session',
+    function($scope, $authentication, $session) {
       $scope.$authentication = $authentication;
       $scope.$session = $session;
     }

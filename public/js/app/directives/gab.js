@@ -3,7 +3,10 @@ define([], function() {
 
   return [function() {
     return {
-      templateUrl: '/templates/components/gab.html'
+      templateUrl: '/templates/components/gab.html',
+      scope: {
+        gab: "=model"
+      }
     };
   }];
 });

@@ -1,4 +1,7 @@
-<article>
-    <h5><a href="#">{{ gab.user.displayname }}</a></h5>{{ gab.user.username }}
-    <p>{{ gab.gab }}</p>
-</article>
+---
+name: gabs.show
+url: /:gab
+animationIn: fadeIn
+auth: true
+---
+<gab model="gab"></gab>

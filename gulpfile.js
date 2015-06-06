@@ -28,7 +28,7 @@ var foundationJS = [
   'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
   'bower_components/tether/tether.js',
   'bower_components/foundation-apps/js/angular/**/*.js',
-  '!bower_components/foundation-apps/js/angular/app.js'
+  '!bower_components/foundation-apps/js/angular/app.js',
 ];
 
 var angularJS = [
@@ -38,6 +38,7 @@ var angularJS = [
   'bower_components/angular-resource/angular-resource.js',
   'bower_components/angular-route/angular-route.js',
   'bower_components/angular-ui-router/release/angular-ui-router.js',
+  'bower_components/ngStorage/ngStorage.js',
 ];
 
 // These files are for your app's JavaScript

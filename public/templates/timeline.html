@@ -1,8 +1,16 @@
 <div class="grid-frame">
     <div class="grid-content medium-4">
-        <div user></div>
+        <user model="$session.user"></user>
     </div>
     <div class="grid-content medium-8">
-        <div ng-include="'/templates/gabs/list.html'" />
+        <div ng-controller="GabController" ng-init="list()">
+            <div class="block-list">
+                <li>
+                    <div ng-repeat="gab in gabs">
+                        <gab model="gab"></gab>
+                    </div>
+                </li>
+            </div>
+        </div>
     </div>
 </div>

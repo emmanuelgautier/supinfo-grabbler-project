@@ -3,15 +3,12 @@ define([], function() {
 
   return ['$scope', '$http', '$stateParams', 'Gab', 'Follower', 'FoundationApi',
     function($scope, $http, $stateParams, Gab, Follower, FoundationApi) {
-      $scope.list = function() {
-        if(!$stateParams.user) {
-          $http.get('/timeline').success(function(gabs) {
-            console.log(gabs);
-            $scope.gabs = gabs;
-          });
-        } else {
 
-        }
+      $scope.list = function() {
+
+        $http.get('/timeline').success(function(gabs) {
+          $scope.gabs = gabs;
+        });
       };
 
       $scope.create = function() {
@@ -19,6 +16,7 @@ define([], function() {
       };
 
       $scope.saveCreate = function() {
+
         var gab = new Gab({
           gab: this.gab
         });

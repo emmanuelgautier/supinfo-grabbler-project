@@ -3,7 +3,10 @@ define([], function() {
 
   return [function() {
     return {
-      templateUrl: '/templates/components/user.html'
+      templateUrl: '/templates/components/user.html',
+      scope: {
+        user: "=model"
+      },
     };
   }];
 });

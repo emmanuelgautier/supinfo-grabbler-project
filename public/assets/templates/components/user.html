@@ -1,15 +1,12 @@
 <div class="card">
     <img ng-if="user.cover" ng-src="{{ user.cover.url }}">
-    <div class="card-divider">
-        <div class="grid-block">
+    <div class="card-section">
+       <div class="grid-block">
             <img ng-src="{{ user.avatar.url }}">
         </div>
+        <div class="grid-block">
+            <h4><a ui-sref="users.show({ username: '{{ user.username }}' })">{{ user.displayname }}</a></h4>
+            <span>@{{ user.username }}</span>
+        </div>
     </div>
-    <div class="grid-block">
-        <h4>{{ user.displayname }}</h4>
-        <span>@{{ user.username }}</span>
-    </div>
-</div>
-<div class="card-section">
-
 </div>
