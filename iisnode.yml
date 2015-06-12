@@ -1,5 +1,4 @@
-node_env: prod
-nodeProcessCommandLine: "c:\program files\nodejs\node.exe"  
+node_env: production
 interceptor: "c:\program files\iisnode\interceptor.js"  
 nodeProcessCountPerApplication: 1  
 maxConcurrentRequestsPerProcess: 1024  
@@ -15,13 +14,13 @@ uncFileChangesPollingInterval: 5000
 gracefulShutdownTimeout: 60000  
 loggingEnabled: true  
 logDirectory: iisnode  
-debuggingEnabled: true  
+debuggingEnabled: false  
 debuggerPortRange: 5058-6058  
 debuggerPathSegment: debug  
 maxLogFileSizeInKB: 128  
 maxTotalLogFileSizeInKB: 1024  
 maxLogFiles: 20  
-devErrorsEnabled: true  
+devErrorsEnabled: false  
 flushResponse: false  
 enableXFF: false  
 promoteServerVars:

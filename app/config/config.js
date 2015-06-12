@@ -4,7 +4,8 @@
 
 var path     = require('path'),
     rootPath = path.normalize(__dirname + '/../..'),
-    env      = process.env.NODE_ENV || 'development';
+    env      = process.env.NODE_ENV || 'development',
+    port     = process.env.PORT || 80;
 
 var config = {
   env: env,
@@ -12,7 +13,7 @@ var config = {
   app: {
     name: 'gabbler',
     host: 'localhost',
-    port: 80,
+    port: port,
     secret: 'key'
   },
   cookie: {
