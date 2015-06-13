@@ -4,8 +4,8 @@ define([], function() {
   return ['$httpProvider', '$routeProvider', '$locationProvider', 
     function($httpProvider, $routeProvider, $locationProvider) {
       $locationProvider.html5Mode({
-        enabled:false,
-        requireBase: false
+        enabled: true,
+        requireBase: true
       });
 
       $locationProvider.hashPrefix('!');
