@@ -1,6 +1,7 @@
 'use strict';
 
-var Boom = require('boom');
+var _    = require('lodash'),
+    Boom = require('boom');
 
 var db = require('../config/db');
 
@@ -29,9 +30,37 @@ exports.list = function(request, reply) {
 
 exports.timeline = function(request, reply) {
 
-  request.query = request.query || {};
+  var user = request.auth.credentials;
 
-  return exports.list(request, reply);
+  var searchUserFoGab = function(gabs, callback) {
+    var ids = _.mapValues(gabs, 'user_id');
+
+    db.User.findAll({
+      where: { id: { in: ids } }
+    }).then(function(users) {
+      gabs = _.merge(gabs, users);
+
+      callback.call(this, gabs)
+    }).catch(function(err) {
+      reply(Boom.badImplementation());
+    });
+  };
+
+  db.sequelize.query(
+    "SELECT * FROM gabs WHERE " + 
+      "user_id = " + user.id + " " +
+      "OR user_id IN (SELECT user_id FROM followers WHERE follower_id = " + user.id + ")",
+    {
+      type: db.Sequelize.QueryTypes.SELECT,
+      model: db.Gab
+    }
+  ).then(function(gabs) {
+    searchUserFoGab(gabs, function(gabs) {
+      reply(gabs);
+    });
+  }).catch(function(err) {
+    reply(Boom.badImplementation());
+  });
 };
 
 exports.count = function(request, reply) {
