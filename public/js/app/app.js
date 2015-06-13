@@ -1,5 +1,5 @@
 define([
-    'require', 'angular',
+    'angular',
     'app/routes', 'app/config', 'app/run',
     'app/services/authentication', 'app/services/session',
     'app/resources/follower', 'app/resources/gab', 'app/resources/user',
@@ -8,7 +8,7 @@ define([
   ],
 
   function(
-    require, angular,
+    angular,
     routes, config, run,
     $authentication, $session,
     Follower, Gab, User,

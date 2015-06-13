@@ -6,25 +6,25 @@ var actions = require('../controllers/actions');
 
 var routes = [{
     method: 'GET',
-    path: '/follow/{user}',
+    path: '/follow/{username}',
     handler: actions.follow,
     config: {
       auth: 'session',
       validate: {
         params: {
-          user: Joi.number().integer().min(1)
+          username: Joi.string()
         }
       }
     }
   }, {
     method: 'GET',
-    path: '/unfollow/{user}',
+    path: '/unfollow/{username}',
     handler: actions.unfollow,
     config: {
       auth: 'session',
       validate: {
         params: {
-          user: Joi.number().integer().min(1)
+          username: Joi.string()
         }
       }
     }

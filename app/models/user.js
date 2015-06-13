@@ -78,6 +78,11 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     instanceMethods: {
+      toJson: function() {
+        delete this.dataValues.password;
+
+        return JSON.stringify(this.dataValues);
+      },
       checkPassword: function(password) {
 
         var hash = this.getDataValue('password');

@@ -38,12 +38,12 @@
   </head>
   <body ng-cloak>
     <div class="grid-frame vertical" ng-controller="AppController">
-      <div class="grid-content shrink" style="padding: 0;">
+      <div class="grid-content shrink collapse">
         <div ng-include="'/templates/partials/nav.html'"></div>
       </div>
       <div class="grid-content">
         <div class="grid-container">
-          <div ng-class="['ui-animation']" ui-view></div>
+          <div ng-class="['ui-animation']" ui-view autoscroll></div>
         </div>
       </div>
       <div ng-include="'/templates/modals/login.html'"></div>

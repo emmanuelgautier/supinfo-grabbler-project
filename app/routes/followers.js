@@ -6,27 +6,23 @@ var follow = require('../controllers/follow');
 
 var routes = [{
     method: 'GET',
-    path: '/followers',
-    handler: follow.followers,
+    path: '/users/{username}/following',
+    handler: follow.followingUser,
     config: {
-      auth: 'session'
-    }
-  }, {
-    method: 'GET',
-    path: '/following',
-    handler: follow.following,
-    config: {
-      auth: 'session'
-    }
-  }, {
-    method: 'GET',
-    path: '/users/{user}/followers',
-    handler: follow.list,
-    config: {
-      auth: 'session',
       validate: {
         params: {
-          user: Joi.number().integer().min(1)
+          username: Joi.string()
+        }
+      }
+    }
+  }, {
+    method: 'GET',
+    path: '/users/{username}/followers',
+    handler: follow.list,
+    config: {
+      validate: {
+        params: {
+          username: Joi.string()
         }
       }
     }

@@ -8,7 +8,7 @@
     </div>
     <div class="menu-group-right">
         <ul class="menu-bar primary condense" ng-show="$authentication.isAuthenticated()">
-            <li><a ui-sref="users.show({ username: '{{ $session.username }}' })">Profile</a></li>
+            <li><a ui-sref="users.show({ username: $session.user.username })">Profile</a></li>
             <li><a href="#" zf-open="createGabModal">Write</a></li>
             <li><a ui-sref="logout">Logout</a></li>
         </ul>

@@ -10,12 +10,12 @@ var users = require('../controllers/users'),
 
 var routes = [{
     method: 'GET',
-    path: '/users/{user}',
+    path: '/users/{username}',
     handler: users.show,
     config: {
       validate: {
         params: {
-          user: Joi.number().integer().min(1)
+          username: Joi.string().alphanum().min(3).max(50)
         }
       }
     }
@@ -27,27 +27,39 @@ var routes = [{
       auth: 'session'
     }
   }, {
-    method: 'PUT',
-    path: '/users/{user}',
+    method: ['PUT', 'POST'],
+    path: '/users/{username}',
     handler: users.update,
     config: {
       auth: 'session',
       validate: {
         params: {
-          user: Joi.number().integer().min(1)
+          username: Joi.string().alphanum().min(3).max(50)
         },
-        payload: UserValidator.Required
+        payload: UserValidator.User
       }
     }
   }, {
+    method: ['PUT', 'POST'],
+    path: '/me/avatar',
+    handler: users.attachAvatar,
+    config: {
+      auth: 'session',
+      payload: {
+        output: 'stream',
+        parse: true,
+        allow: 'multipart/form-data'
+      },
+    }
+  }, {
     method: 'DELETE',
-    path: '/users/{user}',
+    path: '/users/{username}',
     handler: users.delete,
     config: {
       auth: 'session',
       validate: {
         params: {
-          user: Joi.number().integer().min(1)
+          username:Joi.string().alphanum().min(3).max(50)
         }
       }
     }

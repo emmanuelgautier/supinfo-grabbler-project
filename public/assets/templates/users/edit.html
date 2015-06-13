@@ -1,0 +1,28 @@
+---
+name: users.edit
+url: /:username/edit
+---
+<form ng-submit="saveEdit()">
+    <label>
+        Email
+        <input type="email" ng-model="user.email" placeholder="Email" required>
+    </label>
+    <label>
+        Birthdate
+        <input type="date" ng-model="user.birthdate" placeholder="Birthdate" required>
+    </label>
+    <label>
+        Firstname
+        <input type="text" ng-model="user.firstname" placeholder="Firstname" required>
+    </label>
+    <label>
+        Lastname
+        <input type="text" ng-model="user.lastname" placeholder="Lastname" required>
+    </label>
+    <div class="grid-content">
+        <label>Sexe</label>
+        <input type="radio" ng-model="user.gender" value="f" id="female"><label for="female">Female</label>
+        <input type="radio" ng-model="user.gender" value="m" id="male"><label for="male">Male</label>
+    </div>
+    <input type="submit" class="float-right button" value="Save">
+</form>

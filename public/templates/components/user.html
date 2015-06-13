@@ -7,6 +7,10 @@
         <div class="grid-block">
             <h4><a ui-sref="users.show({ username: '{{ user.username }}' })">{{ user.displayname }}</a></h4>
             <span>@{{ user.username }}</span>
+            <div ng-if="$authentication.isAuthenticated() && $session.user.username != user.username">
+                <a href="#" class="hollow button" ng-if="">Follow</a>
+                <a href="#" class="button" ng-else>Unfollow</a>
+            </div>
         </div>
     </div>
 </div>

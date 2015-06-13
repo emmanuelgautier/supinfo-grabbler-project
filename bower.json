@@ -31,6 +31,7 @@
     "requirejs": "~2.1.x",
     "modernizr": "~2.8.x",
     "jquery": "~2.1.x",
-    "ngstorage": "~0.3.4"
+    "ngstorage": "~0.3.4",
+    "ngInfiniteScroll": "~1.2.1"
   }
 }
