@@ -71,17 +71,24 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         User.belongsTo(models.Image, { as: 'avatar', foreignKey: 'avatar_id', constraints: false });
         User.belongsTo(models.Image, { as: 'cover', foreignKey: 'cover_id', constraints: false });
-        User.belongsTo(models.Image, { as: 'background', foreignKey: 'background_id', constraints: false });
 
         User.hasMany(models.Gab, { as: 'gabs', foreignKey: 'user_id', constraints: false });
-        User.belongsToMany(models.User, { as: 'followers', through: 'followers', constraints: false });
+        User.belongsToMany(models.User, { as: 'followers', through: models.Follower, foreignKey: 'follower_id', constraints: false });
+        User.belongsToMany(models.User, { as: 'following', through: models.Follower, foreignKey: 'user_id', constraints: false });
       }
     },
     instanceMethods: {
-      toJson: function() {
-        delete this.dataValues.password;
+      isFollowing: function(user_following) {
+        var id = this.dataValues.id;
 
-        return JSON.stringify(this.dataValues);
+        this.dataValues.isFollowing = false;
+
+        for(var user in user_following) {
+          if(user_following[user].id === id) {
+            this.dataValues.isFollowing = true;
+            return;
+          }
+        }
       },
       checkPassword: function(password) {
 

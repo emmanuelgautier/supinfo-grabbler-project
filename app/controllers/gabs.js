@@ -9,7 +9,11 @@ exports.list = function(request, reply) {
 
   var include = [{
     model: db.User,
-    as: 'user'
+    as: 'user',
+    include: [
+      { model: db.Image, as: 'avatar' },
+      { model: db.Image, as: 'cover' }
+    ]
   }];
 
   if(request.query.user) {
@@ -32,32 +36,30 @@ exports.timeline = function(request, reply) {
 
   var user = request.auth.credentials;
 
-  var searchUserFoGab = function(gabs, callback) {
-    var ids = _.mapValues(gabs, 'user_id');
+  var following = [];
 
-    db.User.findAll({
-      where: { id: { in: ids } }
-    }).then(function(users) {
-      gabs = _.merge(gabs, users);
+  _(user.following).each(function(n) {
+    following.push(n.id);
+  }).value();
 
-      callback.call(this, gabs)
-    }).catch(function(err) {
-      reply(Boom.badImplementation());
-    });
-  };
-
-  db.sequelize.query(
-    "SELECT * FROM gabs WHERE " + 
-      "user_id = " + user.id + " " +
-      "OR user_id IN (SELECT user_id FROM followers WHERE follower_id = " + user.id + ")",
-    {
-      type: db.Sequelize.QueryTypes.SELECT,
-      model: db.Gab
+  db.Gab.findAll({
+    where: {
+      $or: [{
+        user_id: user.id
+      }, {
+        user_id: { in: following }
+      }]
+    },
+    include: {
+      model: db.User,
+      as: 'user',
+      include: [
+        { model: db.Image, as: 'avatar' },
+        { model: db.Image, as: 'cover' }
+      ]
     }
-  ).then(function(gabs) {
-    searchUserFoGab(gabs, function(gabs) {
-      reply(gabs);
-    });
+  }).then(function(gabs) {
+    reply(gabs);
   }).catch(function(err) {
     reply(Boom.badImplementation());
   });
@@ -92,11 +94,18 @@ exports.show = function(request, reply) {
 
   db.Gab.findOne({
     where: { id: request.params.gab },
-    include: [{
-      model: db.User,
-      as: 'user'
-    }]
+    include: [
+      {
+        model: db.User, as: 'user',
+        include: [
+          { model: db.Image, as: 'avatar' },
+          { model: db.Image, as: 'cover' }
+        ]
+      },
+      { model: db.User, as: 'favorite' }
+    ]
   }).then(function(gab) {
+
     if(!gab) {
       return reply(Boom.notFound());
     }
@@ -105,6 +114,14 @@ exports.show = function(request, reply) {
   }).catch(function(err) {
     reply(Boom.badImplementation());
   });
+};
+
+exports.favorite = function(request, reply) {
+
+};
+
+exports.unfavorite = function(request, reply) {
+
 };
 
 exports.delete = function(request, reply) {

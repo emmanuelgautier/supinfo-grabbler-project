@@ -2,7 +2,7 @@ define([
     'angular',
     'app/routes', 'app/config', 'app/run',
     'app/services/authentication', 'app/services/session',
-    'app/resources/follower', 'app/resources/gab', 'app/resources/user',
+    'app/resources/gab', 'app/resources/user',
     'app/directives/gab', 'app/directives/user',
     'app/controllers/app', 'app/controllers/auth', 'app/controllers/user', 'app/controllers/gab'
   ],
@@ -11,7 +11,7 @@ define([
     angular,
     routes, config, run,
     $authentication, $session,
-    Follower, Gab, User,
+    Gab, User,
     GabDirective, UserDirective,
     AppController, AuthController, UserController, GabController
   ) {
@@ -35,7 +35,6 @@ define([
     //load factories
     app.factory('$authentication', $authentication)
       .factory('$session', $session)
-      .factory('Follower', Follower)
       .factory('Gab', Gab)
       .factory('User', User);
 

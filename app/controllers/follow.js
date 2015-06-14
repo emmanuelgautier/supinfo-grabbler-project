@@ -4,26 +4,14 @@ var Boom = require('boom');
 
 var db = require('../config/db');
 
-exports.list = function(request, reply) {
-
-  db.User.findAll().then(function(users) {
-    reply(users);
-  }).catch(function(err) {
-    reply(Boom.badImplementation());
-  });
-};
-
 exports.followers = function(request, reply) {
 
-
+    db.Follower.findAll();
 };
 
 exports.following = function(request, reply) {
 
+    var user = request.auth.credentials;
 
-};
-
-exports.followingUser = function(request, reply) {
-
-
+    reply(user.getFollowing());
 };

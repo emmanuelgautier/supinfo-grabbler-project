@@ -7,7 +7,7 @@ var follow = require('../controllers/follow');
 var routes = [{
     method: 'GET',
     path: '/users/{username}/following',
-    handler: follow.followingUser,
+    handler: follow.following,
     config: {
       validate: {
         params: {
@@ -18,7 +18,7 @@ var routes = [{
   }, {
     method: 'GET',
     path: '/users/{username}/followers',
-    handler: follow.list,
+    handler: follow.followers,
     config: {
       validate: {
         params: {

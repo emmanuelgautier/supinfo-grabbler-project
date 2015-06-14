@@ -4,14 +4,11 @@ url: /:username
 animationIn: fadeIn
 ---
 <div ng-controller="UserController" class="grid-block" ng-init="show()">
-    <div class="grid-content">
-        <div ng-if="$authentication.isAuthenticated() && $session.user.username === user.username">
-            <a ui-sref="users.edit({ username: user.username })">Edit profile</a>
-        </div>
+    <div class="grid-content medium-4">
         <user model="user"></user>
     </div>
-    <div class="grid-content">
-        <div class="block-list">
+    <div class="grid-content medium-8">
+        <div class="block-list" ng-init="gabs()">
             <li>
                 <div ng-repeat="gab in gabs">
                     <gab model="gab"></gab>

@@ -10,6 +10,15 @@ var users = require('../controllers/users'),
 
 var routes = [{
     method: 'GET',
+    path: '/users',
+    handler: users.list,
+    config: {
+      validate: {
+        query: UserValidator.Schema
+      }
+    }
+  }, {
+    method: 'GET',
     path: '/users/{username}',
     handler: users.show,
     config: {

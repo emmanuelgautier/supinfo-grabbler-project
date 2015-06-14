@@ -6286,3 +6286,6 @@ blockquote p {
 
 .float-none {
   float: none; }
+
+.main > .grid-container {
+  margin-top: 1rem; }

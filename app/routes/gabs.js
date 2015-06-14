@@ -46,6 +46,30 @@ var routes = [{
       }
     }
   }, {
+    method: 'GET',
+    path: '/gabs/{gab}/favorite',
+    handler: gabs.favorite,
+    config: {
+      auth: 'session',
+      validate: {
+        params: {
+          gab: Joi.number().integer().min(1)
+        }
+      }
+    }
+  }, {
+    method: 'GET',
+    path: '/gabs/{gab}/unfavorite',
+    handler: gabs.unfavorite,
+    config: {
+      auth: 'session',
+      validate: {
+        params: {
+          gab: Joi.number().integer().min(1)
+        }
+      }
+    }
+  }, {
     method: 'DELETE',
     path: '/gabs/{gab}',
     handler: gabs.delete,

@@ -42,8 +42,10 @@
         <div ng-include="'/templates/partials/nav.html'"></div>
       </div>
       <div class="grid-content">
-        <div class="grid-container">
-          <div ng-class="['ui-animation']" ui-view autoscroll></div>
+        <div class="main">
+          <div class="grid-container">
+            <div ng-class="['ui-animation']" ui-view autoscroll></div>
+          </div>
         </div>
       </div>
       <div ng-include="'/templates/modals/login.html'"></div>

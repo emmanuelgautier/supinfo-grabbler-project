@@ -1,15 +1,36 @@
-<div class="card">
-    <img ng-if="user.cover" ng-src="{{ user.cover.url }}">
+<div class="card" ng-controller="UserController">
+    <img ng-src="{{ user.cover.url }}">
+    <div class="card-divider text-center" ng-if="$authentication.isAuthenticated() && $session.user.username === user.username">
+        <a ui-sref="users.edit({ username: user.username })">Edit profile</a>
+    </div>
     <div class="card-section">
-       <div class="grid-block">
-            <img ng-src="{{ user.avatar.url }}">
+        <div class="grid-block">
+            <div class="grid-content">
+                <img ng-src="{{ user.avatar.url }}" class="thumbnail">
+            </div>
+            <div class="grid-block vertical">
+                <div class="grid-content">
+                    <h4><a ui-sref="users.show({ username: user.username })">{{ user.displayname }}</a></h4>
+                    <span>@{{ user.username }}</span>
+                </div>
+                <div class="grid-content">
+                    <div ng-if="$authentication.isAuthenticated() && $session.user.username != user.username">
+                        <div ng-if="!user.isFollowing">
+                            <button class="hollow button" ng-click="follow(user.username); user.isFollowing = true;">Follow</button>
+                        </div>
+                        <div ng-if="user.isFollowing">
+                            <button class="button" ng-click="unfollow(user.username); user.isFollowing = false;">Unfollow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="grid-block">
-            <h4><a ui-sref="users.show({ username: '{{ user.username }}' })">{{ user.displayname }}</a></h4>
-            <span>@{{ user.username }}</span>
-            <div ng-if="$authentication.isAuthenticated() && $session.user.username != user.username">
-                <a href="#" class="hollow button" ng-if="">Follow</a>
-                <a href="#" class="button" ng-else>Unfollow</a>
+            <div class="grid-content">
+                <a ui-sref="users.followers({ username: user.username })">Followers</a>
+            </div>
+            <div class="grid-content">
+                <a ui-sref="users.following({ username: user.username })">Following</a>
             </div>
         </div>
     </div>

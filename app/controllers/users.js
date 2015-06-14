@@ -4,11 +4,52 @@ var Boom = require('boom');
 
 var db = require('../config/db');
 
+exports.list = function(request, reply) {
+
+  var where = request.query;
+
+  if(where.username) {
+    where.username = { like: '%' + where.username + '%' };
+  }
+
+  db.User.findAll({ 
+    where: where,
+    include: [
+      { model: db.Image, as: 'avatar' },
+      { model: db.Image, as: 'cover' }
+    ]
+  }).then(function(users) {
+    reply(users);
+  }).catch(function(err) {
+    reply(Boom.badImplementation());
+  });
+};
+
 exports.show = function(request, reply) {
 
-  db.User.find({ where: { username: request.params.username }}).then(function(user) {
-    reply(user);
+  db.User.find({ 
+    where: { username: request.params.username },
+    include: [
+      { model: db.Image, as: 'avatar' },
+      { model: db.Image, as: 'cover' },
+      { model: db.User, as: 'followers' },
+      { model: db.User, as: 'following' }
+    ]
+  }).then(function(user) {
+    if(!user) {
+      return reply(Boom.notFound());
+    }
+
+    //if is connected, detect if he is following user
+    request.server.auth.test('session', request, function(err, credentials) {
+      if(!err) {
+        user.isFollowing(credentials.following);
+      }
+
+      reply(user);
+    });
   }).catch(function(err) {
+    throw err;
     reply(Boom.badImplementation());
   });
 };

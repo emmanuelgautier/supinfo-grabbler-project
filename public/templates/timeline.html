@@ -4,12 +4,8 @@
     </div>
     <div class="grid-content medium-8">
         <div ng-controller="GabController" ng-init="list()">
-            <div class="block-list">
-                <li>
-                    <div ng-repeat="gab in gabs">
-                        <gab model="gab"></gab>
-                    </div>
-                </li>
+            <div ng-repeat="gab in gabs">
+                <gab model="gab"></gab>
             </div>
         </div>
     </div>

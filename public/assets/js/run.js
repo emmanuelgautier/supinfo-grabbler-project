@@ -1,11 +1,15 @@
 define([], function() {
   'use strict';
 
-  return ['$rootScope' '$authentication', 'FoundationApi',
-    function ($rootScope $authentication, FoundationApi) {
+  return ['$rootScope', '$location', '$authentication', 'FoundationApi',
+    function ($rootScope, $location, $authentication, FoundationApi) {
       $rootScope.$on("$locationChangeStart", function(event, next, current) {
+        if(next === $location.protocol() + '://' + location.host + '/#!' + '/' && !$authentication.isAuthenticated()) {
+          return redirect($location, event);
+        }
+
         for(var i in foundationRoutes) {
-          if(next.indexOf(i) != -1) {
+          if(i != '/' && next.indexOf(i) != -1) {
             if(foundationRoutes[i].auth === true && !$authentication.isAuthenticated()) {
               FoundationApi.publish('loginModal', 'open');
 

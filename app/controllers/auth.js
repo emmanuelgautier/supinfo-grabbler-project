@@ -16,7 +16,13 @@ exports.login = function(request, reply) {
   };
 
   db.User.find({ 
-    where: { username: inputs.username }
+    where: { username: inputs.username },
+    include: [
+      { model: db.Image, as: 'avatar' },
+      { model: db.Image, as: 'cover' },
+      { model: db.User, as: 'followers' },
+      { model: db.User, as: 'following' }
+    ]
   }).then(function(user) {
 
     if(!user || !user.checkPassword(inputs.password)) {
@@ -60,7 +66,7 @@ exports.register = function(request, reply) {
       db.Image.create(image).then(function(image) {
         user.update({ avatar_id: image.id });
       }).catch(function(err) {
-        throw new Boom.badImplementation();
+        reply(Boom.badImplementation());
       });
 
       reply(user).code(201);

@@ -1,7 +1,24 @@
-<article>
-    <h5><a ui-sref="users.show({ username: '{{ gab.user.username }}' })">{{ gab.user.displayname }}</a></h5><span>@{{ gab.user.username }}</span>
-    <p>{{ gab.gab }}</p>
-    <div>
-		
+<div class="card" ng-controller="GabController">
+    <div class="card-section">
+        <div class="grid-block">
+            <div class="grid-content medium-2">
+                <img ng-src="{{ gab.user.avatar.url }}" class="thumbnail">
+            </div>
+            <div class="grid-block vertical medium-10">
+                <div class="grid-content">
+                    <span><a ui-sref="users.show({ username: '{{ gab.user.username }}' })">{{ gab.user.displayname }}</a></span>
+                    <span>@{{ gab.user.username }}</span>
+                </div>
+                <div class="grid-content">
+                    <p>{{ gab.gab }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-divider">
+        <a ng-click="favorite(gab.id)" ng-show="!gab.favorited">Favorite</a>
+        <a ng-click="unfavorite(gab.id)" ng-show="gab.favorited">Unfavorite</a>
+
+        <a ng-click="delete(gab.id)" ng-show="gab.user.username === $session.user.username">Delete</a>
     </div>
 </article>

@@ -1,7 +1,7 @@
 define([], function() {
   'use strict';
 
-  return ['$session', function($session) {
+  return ['$http', '$session', function($http, $session) {
     var $authentication = {};
 
     $authentication.setUser = function(user) {
@@ -15,6 +15,10 @@ define([], function() {
     $authentication.logout = function() {
       $session.user = null;
     };
+
+    $http.get('/me').success(function(user) {
+      $authentication.setUser(user);
+    });
 
     return $authentication;
   }];

@@ -1,8 +1,8 @@
 define([], function() {
   'use strict';
 
-  return ['$scope', '$http', '$stateParams', 'Gab', 'Follower', 'FoundationApi',
-    function($scope, $http, $stateParams, Gab, Follower, FoundationApi) {
+  return ['$scope', '$http', '$resource', '$stateParams', 'Gab', 'FoundationApi',
+    function($scope, $http, $resource, $stateParams, Gab, FoundationApi) {
 
       $scope.list = function() {
 
@@ -24,6 +24,21 @@ define([], function() {
         gab.$save(function(roomCreated) {
           FoundationApi.publish('createGabModal', 'close');
         });
+      };
+
+      $scope.favorite = function(id) {
+
+        $resource('/gabs/:id/favorite').get({ id: id });
+      };
+
+      $scope.unfavorite = function(id) {
+
+        $resource('/gabs/:id/unfavorite').get({ id: id });
+      };
+
+      $scope.delete = function(id) {
+
+        $http.delete('/gabs/' + id);
       };
     }
   ];

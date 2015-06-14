@@ -45,6 +45,8 @@ define([], function() {
 
         $http.get('/logout').success(function() {
           $authentication.logout();
+
+          $location.path('/');
         });
       };
     }
