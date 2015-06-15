@@ -67,24 +67,28 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: true,
     paranoid: true,
     underscored: true,
+    indexes: [{
+      unique: true,
+      fields: ['username', 'email']
+    }],
     classMethods: {
       associate: function(models) {
         User.belongsTo(models.Image, { as: 'avatar', foreignKey: 'avatar_id', constraints: false });
         User.belongsTo(models.Image, { as: 'cover', foreignKey: 'cover_id', constraints: false });
 
         User.hasMany(models.Gab, { as: 'gabs', foreignKey: 'user_id', constraints: false });
-        User.belongsToMany(models.User, { as: 'followers', through: models.Follower, foreignKey: 'follower_id', constraints: false });
-        User.belongsToMany(models.User, { as: 'following', through: models.Follower, foreignKey: 'user_id', constraints: false });
+        User.belongsToMany(models.User, { as: 'followers', through: models.Follower, foreignKey: 'user_id', constraints: false });
+        User.belongsToMany(models.User, { as: 'following', through: models.Follower, foreignKey: 'follower_id', constraints: false });
       }
     },
     instanceMethods: {
-      isFollowing: function(user_following) {
+      isFollowing: function(userFollowing) {
         var id = this.dataValues.id;
 
         this.dataValues.isFollowing = false;
 
-        for(var user in user_following) {
-          if(user_following[user].id === id) {
+        for(var user in userFollowing) {
+          if(userFollowing[user].id === id) {
             this.dataValues.isFollowing = true;
             return;
           }

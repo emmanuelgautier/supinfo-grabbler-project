@@ -27,7 +27,9 @@ define([
       //foundation
       'foundation',
       'foundation.dynamicRouting',
-      'foundation.dynamicRouting.animations'
+      'foundation.dynamicRouting.animations',
+
+      'ngFileUpload'
     ]);
 
     app.config(config);

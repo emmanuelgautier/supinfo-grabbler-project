@@ -14,10 +14,14 @@ define([], function() {
           $authentication.setUser(data);
 
           FoundationApi.publish('loginModal', 'close');
+          FoundationApi.publish('success-notification', { title: 'Authentication Success', content: 'You are now logged !' });
 
           $location.path('/timeline');
         }).error(function(data, status) {
+          console.log(data);
           $scope.password = null;
+
+          FoundationApi.publish('danger-notification', { title: 'Authentication Failed', content: data.message });
         });
       };
 
@@ -36,8 +40,10 @@ define([], function() {
         $http.post('/register', user).success(function(data, status) {
           FoundationApi.publish('registerModal', 'close');
           FoundationApi.publish('loginModal', 'open');
-        }).error(function(data, status) {
 
+          FoundationApi.publish('success-notification', { title: 'Registration Success', content: 'You are now registered !' });
+        }).error(function(data, status) {
+          FoundationApi.publish('danger-notification', { title: 'Registration Failed', content: data.message });
         });
       };
 

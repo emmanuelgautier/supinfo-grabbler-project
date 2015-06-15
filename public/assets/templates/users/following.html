@@ -2,18 +2,12 @@
 name: users.following
 url: /:username/following
 ---
-<div ng-controller="UserController" class="grid-block" ng-init="show()">
-    <div class="grid-content medium-4">
-        <div ng-if="$authentication.isAuthenticated() && $session.user.username === user.username">
-            <a ui-sref="users.edit({ username: user.username })">Edit profile</a>
-        </div>
-        <user model="user"></user>
-    </div>
-    <div class="grid-content medium-8">
-        <div class="block-list" ng-init="following()">
-            <li>
-
-            </li>
+<div ng-controller="UserController" class="grid-block" ng-init="following()">
+    <div class="grid-content medium-12">
+        <div class="block-list">
+            <ul ng-repeat="follower in following">
+                <li><a ui-sref="users.show({ username: follower.username })">{{ follower.displayname }}</a></li>
+            </ul>
         </div>
     </div>
 </div>

@@ -50,11 +50,25 @@ var routes = [{
     }
   }, {
     method: ['PUT', 'POST'],
-    path: '/me/avatar',
+    path: '/users/{username}/avatar',
     handler: users.attachAvatar,
     config: {
       auth: 'session',
       payload: {
+        maxBytes: 209715200,
+        output: 'stream',
+        parse: true,
+        allow: 'multipart/form-data'
+      },
+    }
+  }, {
+    method: ['PUT', 'POST'],
+    path: '/users/{username}/cover',
+    handler: users.attachCover,
+    config: {
+      auth: 'session',
+      payload: {
+        maxBytes: 209715200,
         output: 'stream',
         parse: true,
         allow: 'multipart/form-data'

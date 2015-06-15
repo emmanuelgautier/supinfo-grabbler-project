@@ -7,7 +7,7 @@ url: /search
         <user model="$session.user"></user>
     </div>
     <div class="grid-content medium-8">
-		<form novalidate ng-submit="saveSearch()">
+        <form novalidate ng-submit="saveSearch()">
             <label>
                 <span class="inline-label">
                     <input type="search" ng-model="searchUsername" placeholder="Search an user">
@@ -16,9 +16,9 @@ url: /search
             </label>
         </form>
         <div class="block-list">
-        	<ul ng-repeat="user in users">
-        		<li><a ui-sref="users.show({ username: user.username })">{{ user.displayname }}</a></li>
-        	</ul>
+            <ul ng-repeat="user in users">
+                <li><a ui-sref="users.show({ username: user.username })">{{ user.displayname }}</a></li>
+            </ul>
         </div>
     </div>
 </div>

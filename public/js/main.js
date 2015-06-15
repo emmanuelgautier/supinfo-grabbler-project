@@ -3,7 +3,7 @@ require(['angular', 'foundation', 'app/app'],
     'use strict';
 
     angular.element(document).ready(function() {
-    	angular.bootstrap(document, ['gabbler']);
+      angular.bootstrap(document, ['gabbler']);
     });
   }
 );

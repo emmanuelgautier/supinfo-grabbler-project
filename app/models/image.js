@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
     underscored: true,
     classMethods: {
       associate: function(models) {
-        Image.belongsTo(models.User, { as: 'user', foreignKey: 'user_id' });
+        Image.belongsTo(models.User, { as: 'user', foreignKey: 'user_id', constraints: true });
       }
     }
   });

@@ -4,7 +4,7 @@ define([], function() {
   return ['$httpProvider', '$routeProvider', '$locationProvider', 
     function($httpProvider, $routeProvider, $locationProvider) {
       $locationProvider.html5Mode({
-        enabled: true,
+        enabled: false,
         requireBase: true
       });
 

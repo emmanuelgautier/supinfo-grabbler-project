@@ -3,28 +3,52 @@ name: users.edit
 url: /:username/edit
 ---
 <div ng-controller="UserController" ng-init="edit()">
-    <form ng-submit="saveEdit()">
-        <label>
-            Email
-            <input type="email" ng-model="user.email" placeholder="Email" required>
-        </label>
-        <label>
-            Birthdate
-            <input type="date" ng-model="user.birthdate" placeholder="Birthdate" required>
-        </label>
-        <label>
-            Firstname
-            <input type="text" ng-model="user.firstname" placeholder="Firstname" required>
-        </label>
-        <label>
-            Lastname
-            <input type="text" ng-model="user.lastname" placeholder="Lastname" required>
-        </label>
-        <div class="grid-content">
-            <label>Sexe</label>
-            <input type="radio" ng-model="user.gender" value="f" id="female"><label for="female">Female</label>
-            <input type="radio" ng-model="user.gender" value="m" id="male"><label for="male">Male</label>
+    <div class="card">
+        <div class="card-section">
+            <form ng-submit="saveEdit()">
+                <label>
+                    Email
+                    <input type="email" ng-model="user.email" placeholder="Email" required>
+                </label>
+                <label>
+                    Birthdate
+                    <input type="date" ng-model="user.birthdate" placeholder="Birthdate" required>
+                </label>
+                <label>
+                    Firstname
+                    <input type="text" ng-model="user.firstname" placeholder="Firstname" required>
+                </label>
+                <label>
+                    Lastname
+                    <input type="text" ng-model="user.lastname" placeholder="Lastname" required>
+                </label>
+                <div class="grid-content">
+                    <label>Sexe</label>
+                    <input type="radio" ng-model="user.gender" value="f" id="female"><label for="female">Female</label>
+                    <input type="radio" ng-model="user.gender" value="m" id="male"><label for="male">Male</label>
+                </div>
+                <div class="grid-content">
+                    <label>Color</label>
+                    <color-picker ng-model="user.color"></color-picker>
+                </div>
+                <input type="submit" class="float-right button" value="Save">
+            </form>
         </div>
-        <input type="submit" class="float-right button" value="Save">
-    </form>
+    </div>
+    <div class="grid-block">
+        <div class="grid-content">
+            <div class="card">
+                <div class="card-section text-center">
+                    <div class="button" ngf-select ng-model="avatar" ngf-multiple="false" ngf-change="saveEditAvatar()">Upload a new avatar</div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-content">
+            <div class="card">
+                <div class="card-section text-center">
+                    <div class="button" ngf-select ng-model="cover" ngf-change="saveEditCover()">Upload a new cover image</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

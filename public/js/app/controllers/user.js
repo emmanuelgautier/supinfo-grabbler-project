@@ -1,8 +1,8 @@
 define([], function() {
   'use strict';
 
-  return ['$scope', '$stateParams', '$http', '$resource', '$session', 'User', 'Gab',
-    function($scope, $stateParams, $http, $resource, $session, User, Gab) {
+  return ['$scope', '$stateParams', '$http', 'Upload', '$resource', 'FoundationApi', '$session', '$authentication', 'User', 'Gab',
+    function($scope, $stateParams, $http, Upload, $resource, FoundationApi, $session, $authentication, User, Gab) {
       $scope.show = function() {
 
         $scope.user = User.get({ username: $stateParams.username });
@@ -32,7 +32,48 @@ define([], function() {
           $location.path('/users/' + this.user.username);
         }
 
-        User.update({ username: $session.user.username }, this.user);
+        User.update({ username: $session.user.username }, this.user).success(function() {
+
+          $authentication.retrieveUser();
+        }).error(function(data, status) {
+          FoundationApi.publish('danger-notification', { title: 'Error', content: data.message });
+        });
+      };
+
+      $scope.saveEditAvatar = function() {
+
+        if(!this.avatar || this.avatar.length === 0) {
+          return;
+        }
+
+        Upload.upload({
+          url: '/users/' + $stateParams.username + '/avatar',
+          file: $scope.avatar[0]
+        }).success(function (data, status, headers, config) {
+          FoundationApi.publish('success-notification', { title: 'Edited', content: 'Avatar is changed !' });
+
+          $authentication.retrieveUser();
+        }).error(function(data, status) {
+          FoundationApi.publish('danger-notification', { title: 'Error', content: data.message });
+        });
+      };
+
+      $scope.saveEditCover = function(file) {
+
+        if(!this.cover || this.cover.length === 0) {
+          return;
+        }
+
+        Upload.upload({
+          url: '/users/' + $stateParams.username + '/cover',
+          file: $scope.cover[0]
+        }).success(function (data, status, headers, config) {
+          FoundationApi.publish('success-notification', { title: 'Edited', content: 'Cover is changed !' });
+
+          $authentication.retrieveUser();
+        }).error(function(data, status) {
+          FoundationApi.publish('danger-notification', { title: 'Error', content: data.message });
+        });
       };
 
       $scope.search = function() {
@@ -48,22 +89,26 @@ define([], function() {
 
       $scope.followers = function() {
 
-        $scope.users = $resource('/users/:username/followers').get({ username: $stateParams.username });
+        $scope.followers = $resource('/users/:username/followers').query({ username: $stateParams.username });
       };
 
       $scope.following = function() {
 
-        $scope.users = $resource('/users/:username/following').get({ username: $stateParams.username });
+        $scope.following = $resource('/users/:username/following').query({ username: $stateParams.username });
       };
 
       $scope.follow = function(username) {
 
-        $resource('/follow/:username').get({ username: username });
+        $resource('/follow/:username').get({ username: username }, function() {
+          FoundationApi.publish('success-notification', { title: 'New follow', content: 'You follow ' + username + ' now !' });
+        });
       };
 
       $scope.unfollow = function(username) {
 
-        $resource('/unfollow/:username').get({ username: username });
+        $resource('/unfollow/:username').get({ username: username }, function() {
+          FoundationApi.publish('success-notification', { title: 'New follow', content: 'You unfollow ' + username + ' now !' });
+        });
       };
     }
   ];

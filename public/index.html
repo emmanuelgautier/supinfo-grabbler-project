@@ -11,25 +11,35 @@
     <link rel="stylesheet" type="text/css" href="css/app.css">
     <!--[if lte IE 7]><script src="/js/lib/json2.js"></script><![endif]-->
     <script type="text/javascript" src="/js/lib/modernizr.js"></script>
-    <script type="text/javascript" src="/js/lib/jquery.min.js"></script>
     <script type="text/javascript">
       var require = {
+        enforceDefine: false,
+        waitSeconds: 0,
         baseUrl: "/js",
         maps: {},
         paths: {
+          "jquery": "lib/jquery.min",
           "angular": "lib/angular",
-          "foundation": "lib/foundation",
+          "foundation": "lib/foundation"
         },
         shim: {
           "angular": {
-            exports: "angular"
+            exports: "angular",
+            deps: ['jquery']
           },
           "foundation": {
-              exports: "foundation",
-              deps: ['angular']
+            exports: "foundation",
+            deps: ['angular']
           },
           "app/app": {
-            deps: ['angular']
+            deps: [
+              'angular',
+              'app/routes', 'app/config', 'app/run',
+              'app/services/authentication', 'app/services/session',
+              'app/resources/gab', 'app/resources/user',
+              'app/directives/gab', 'app/directives/user',
+              'app/controllers/app', 'app/controllers/auth', 'app/controllers/user', 'app/controllers/gab'
+            ]
           }
         }
       };
@@ -51,6 +61,8 @@
       <div ng-include="'/templates/modals/login.html'"></div>
       <div ng-include="'/templates/modals/register.html'"></div>
       <div ng-include="'/templates/modals/write.html'"></div>
+      <div ng-include="'/templates/notifications/danger-notification.html'"></div>
+      <div ng-include="'/templates/notifications/success-notification.html'"></div>
     </div>
   </body>
 </html>

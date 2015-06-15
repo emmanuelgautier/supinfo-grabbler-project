@@ -9,23 +9,27 @@
                 <img ng-src="{{ user.avatar.url }}" class="thumbnail">
             </div>
             <div class="grid-block vertical">
-                <div class="grid-content">
-                    <h4><a ui-sref="users.show({ username: user.username })">{{ user.displayname }}</a></h4>
-                    <span>@{{ user.username }}</span>
+                <div class="grid-content vertical">
+                    <div class="grid-content">
+                        <h4><a ui-sref="users.show({ username: user.username })">{{ user.displayname }}</a></h4>
+                    </div>
+                    <div class="grid-content">
+                        <span>@{{ user.username }}</span>
+                    </div>
                 </div>
                 <div class="grid-content">
                     <div ng-if="$authentication.isAuthenticated() && $session.user.username != user.username">
-                        <div ng-if="!user.isFollowing">
+                        <div ng-if="!user.isFollowing" class="text-center">
                             <button class="hollow button" ng-click="follow(user.username); user.isFollowing = true;">Follow</button>
                         </div>
-                        <div ng-if="user.isFollowing">
+                        <div ng-if="user.isFollowing" class="text-center">
                             <button class="button" ng-click="unfollow(user.username); user.isFollowing = false;">Unfollow</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="grid-block">
+        <div class="grid-block" style="margin-top: 10px">
             <div class="grid-content">
                 <a ui-sref="users.followers({ username: user.username })">Followers</a>
             </div>

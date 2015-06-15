@@ -5,20 +5,28 @@ define([], function() {
     var $authentication = {};
 
     $authentication.setUser = function(user) {
+
       $session.user = user;
     };
 
     $authentication.isAuthenticated = function() {
+
       return !!$session.user && !!$session.user.id;
     };
 
     $authentication.logout = function() {
+
       $session.user = null;
     };
 
-    $http.get('/me').success(function(user) {
-      $authentication.setUser(user);
-    });
+    $authentication.retrieveUser = function() {
+
+      $http.get('/me').success(function(user) {
+        $authentication.setUser(user);
+      });
+    };
+
+    $authentication.retrieveUser();
 
     return $authentication;
   }];

@@ -21,24 +21,34 @@ define([], function() {
           gab: this.gab
         });
 
-        gab.$save(function(roomCreated) {
+        gab.$save(function(gabCreated) {
           FoundationApi.publish('createGabModal', 'close');
+
+          FoundationApi.publish('success-notification', { title: 'New gab', content: 'Gab is posted successful !' });
+
+          $scope.gab = "";
         });
       };
 
       $scope.favorite = function(id) {
 
-        $resource('/gabs/:id/favorite').get({ id: id });
+        $resource('/gabs/:id/favorite').get({ id: id }, function() {
+          FoundationApi.publish('success-notification', { title: 'Gab favorited', content: 'You favorite this gab !' });
+        });
       };
 
       $scope.unfavorite = function(id) {
 
-        $resource('/gabs/:id/unfavorite').get({ id: id });
+        $resource('/gabs/:id/unfavorite').get({ id: id }, function() {
+          FoundationApi.publish('success-notification', { title: 'Gab favorited', content: 'You unfavorite this gab !' });
+        });
       };
 
       $scope.delete = function(id) {
 
-        $http.delete('/gabs/' + id);
+        $http.delete('/gabs/' + id).success(function() {
+          FoundationApi.publish('success-notification', { title: 'Gab Deleted', content: 'Gab is deleted successful !' });
+        });
       };
     }
   ];

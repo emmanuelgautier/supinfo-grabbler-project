@@ -5,7 +5,9 @@ define([], function() {
     function ($rootScope, $location, $authentication, FoundationApi) {
       $rootScope.$on("$locationChangeStart", function(event, next, current) {
         if(next === $location.protocol() + '://' + location.host + '/#!' + '/' && !$authentication.isAuthenticated()) {
-          return redirect($location, event);
+          FoundationApi.publish('loginModal', 'open');
+
+          event.preventDefault();
         }
 
         for(var i in foundationRoutes) {

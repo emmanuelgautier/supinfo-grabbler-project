@@ -27,6 +27,7 @@ var foundationJS = [
   'bower_components/fastclick/lib/fastclick.js',
   'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
   'bower_components/tether/tether.js',
+  'bower_components/hammerjs/hammer.js',
   'bower_components/foundation-apps/js/angular/**/*.js',
   '!bower_components/foundation-apps/js/angular/app.js',
 ];
@@ -39,6 +40,8 @@ var angularJS = [
   'bower_components/angular-route/angular-route.js',
   'bower_components/angular-ui-router/release/angular-ui-router.js',
   'bower_components/ngStorage/ngStorage.js',
+  'bower_components/ng-file-upload/ng-file-upload.js',
+  'bower_components/ng-file-upload-shim/ng-file-upload-shim.js',
 ];
 
 // These files are for your app's JavaScript
@@ -83,7 +86,7 @@ gulp.task('copy', function() {
 
   // App main
   return gulp.src(['./public/assets/js/main.js'])
-    .pipe(gulp.dest('./public/js/'));;
+    .pipe(gulp.dest('./public/js/'));
 });
 
 // Compiles Sass
@@ -131,6 +134,11 @@ gulp.task('uglify', function() {
   // App JavaScript
   return gulp.src(appJS)
     .pipe(gulp.dest('./public/js/app/'))
+  ;
+
+  // Other libs
+  return gulp.src(['./public/assets/js/lib/**/*.js'])
+    .pipe(gulp.dest('./public/js/lib/'))
   ;
 });
 
