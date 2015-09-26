@@ -153,7 +153,6 @@ exports.attachAvatar = function(request, reply) {
 
       reply().code(204);
     }).catch(function(err) {
-      throw err;
       reply(Boom.badImplementation());
     });
   });
@@ -187,7 +186,6 @@ exports.attachCover = function(request, reply) {
 
       reply().code(204);
     }).catch(function(err) {
-      throw err;
       reply(Boom.badImplementation());
     });
   });
